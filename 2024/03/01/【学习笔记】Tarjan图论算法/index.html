@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="- 前言本文主要介绍 Tarjan 算法的「强连通分量」「割点」「桥」等算法。 争取写的好懂一些。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【学习笔记】Tarjan图论算法">
+<meta property="og:url" content="http://example.com/2024/03/01/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91Tarjan%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="TheSky233&#39;s Blog">
+<meta property="og:description" content="- 前言本文主要介绍 Tarjan 算法的「强连通分量」「割点」「桥」等算法。 争取写的好懂一些。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2023/01/23/pSYVyAe.png">
+<meta property="og:image" content="https://s1.ax1x.com/2023/01/23/pSYVchd.png">
+<meta property="og:image" content="https://s1.ax1x.com/2023/01/23/pSYVWct.png">
+<meta property="og:image" content="https://s1.ax1x.com/2023/01/23/pSYVfjP.png">
+<meta property="og:image" content="https://s1.ax1x.com/2023/01/23/pSYV6tH.png">
+<meta property="og:image" content="https://s1.ax1x.com/2023/01/23/pSYVR1I.png">
+<meta property="og:image" content="https://s1.ax1x.com/2023/01/23/pSYV29A.png">
+<meta property="og:image" content="https://s1.ax1x.com/2023/01/21/pSGyj2j.png">
+<meta property="og:image" content="https://s1.ax1x.com/2023/01/23/pSYkD0g.png">
+<meta property="article:published_time" content="2024-02-29T16:32:15.000Z">
+<meta property="article:modified_time" content="2024-02-29T16:42:06.628Z">
+<meta property="article:author" content="TheSky233">
+<meta property="article:tag" content="Tarjan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2023/01/23/pSYVyAe.png">
+
+<link rel="canonical" href="http://example.com/2024/03/01/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91Tarjan%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【学习笔记】Tarjan图论算法 | TheSky233's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <a target="_blank" rel="noopener" href="https://github.com/TheSky233/TheSky233.github.io" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">TheSky233's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">𝐴𝑛𝑑 𝑖𝑛 𝑡ℎ𝑎𝑡 𝑙𝑖𝑔ℎ𝑡...</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="algolia-results">
+  <div id="algolia-stats"></div>
+  <div id="algolia-hits"></div>
+  <div id="algolia-pagination" class="algolia-pagination"></div>
+</div>
+
+      
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/01/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91Tarjan%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.luogu.com.cn/upload/usericon/501865.png">
+      <meta itemprop="name" content="TheSky233">
+      <meta itemprop="description" content="An OIer / PhOer">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TheSky233's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【学习笔记】Tarjan图论算法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-03-01 00:32:15 / 修改时间：00:42:06" itemprop="dateCreated datePublished" datetime="2024-03-01T00:32:15+08:00">2024-03-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="- 前言"></a>- 前言</h1><p>本文主要介绍 Tarjan 算法的「强连通分量」「割点」「桥」等算法。</p>
+<p>争取写的好懂一些。</p>
+<span id="more"></span>
+<h2 id="「强连通分量」"><a href="#「强连通分量」" class="headerlink" title="- 「强连通分量」"></a>- 「强连通分量」</h2><h3 id="何为「强连通分量」"><a href="#何为「强连通分量」" class="headerlink" title="- 何为「强连通分量」"></a>- 何为「强连通分量」</h3><p>在有向图中，如果任意两个点都能通过直接或间接的路径相互通达，那么就称这个有向图是「强连通」的。</p>
+<p>如果这个有向图的子图是「强连通」的，我们就称这个子图为「强连通分量」。</p>
+<p>特别的，单独一个点也算是一个强连通分量。</p>
+<p>例如下图 $^{\texttt{[1]}}$：</p>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pSYVyAe"><img src="https://s1.ax1x.com/2023/01/23/pSYVyAe.png" alt="pSYVyAe.png"></a></p>
+<p>我们发现，$\{1,3,2,4\}$ 这个子图无论从哪个节点出发，均能到达其他的节点，所以它是一个强连通分量。</p>
+<p>同理 $\{5\}\{6\}$ 单个节点独自构成一个强连通分量。</p>
+<h3 id="Tarjan"><a href="#Tarjan" class="headerlink" title="- Tarjan"></a>- Tarjan</h3><p>我们对每个节点定义两个值：$\text{dfn}_i$ 和 $\text{low}_i$。</p>
+<ul>
+<li>$\text{dfn}_i$：表示这个节点的 dfs 序，即它在 dfs 中是第几个被访问到的。</li>
+<li>$\text{low}_i$：表示这个节点能追溯到的在栈中节点的最早的已经在栈中的节点。</li>
+</ul>
+<p>其中，以 $u$ 为根的 dfs 树的 $\text{dfn}$ 值严格大于 $\text{dfn}_u$ 的值。</p>
+<p>其中，每访问到一个节点时，我们初始化为 $\text{dfn}_i=\text{low}_i=dfs_num$，其中 $dfs_num$ 是 dfs 序，每访问到一个点就使其的值增加 $1$，把它压入手工栈，并标明它在栈中。</p>
+<p>然后我们接着访问它下面的一个节点：</p>
+<ol>
+<li>它没被访问过，不在栈中，就先 $\text{dfs}(v)$，对他进行深搜，并在回溯过程中以 $\text{low}_v$ 更新 $\text{low}_u$（因为 $v$ 可以访问到的节点 $u$ 一定也可以访问到）。</li>
+<li>它被访问过，在栈中，根据 $\text{low}$ 的定义，用 $\text{dfn}_v$ 更新 $\text{low}_u$。$^{\texttt{[2]}}$</li>
+<li>它被访问过，不在栈中，这就说明它已经在一个强连通分量中了，无需更新。</li>
+</ol>
+<hr>
+<p>接下来我们来看看当 $\text{dfn}_i=\text{low}_i$ 的时候会发生什么。</p>
+<p>根据定义，这个强联通分量中只有一个点的 $\text{dfn}$ 值和 $\text{low}$ 相等，就是 dfs 碰到的第一个强连通分量的点，它的 $\text{low}$ 值不随其他点而影响。</p>
+<p>因此，如果 $\text{dfn}_i=\text{low}_i$，那么它和它栈上方的点共同构成一个强连通分量。</p>
+<p>总体的时间复杂度是 $\Theta(V+E)$ 的，非常优秀。</p>
+<h3 id="图解"><a href="#图解" class="headerlink" title="- 图解"></a>- 图解</h3><p><a target="_blank" rel="noopener" href="https://imgse.com/i/pSYVchd"><img src="https://s1.ax1x.com/2023/01/23/pSYVchd.png" alt="pSYVchd.png"></a></p>
+<p>起始图，从 $1$ 开始遍历。</p>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pSYVWct"><img src="https://s1.ax1x.com/2023/01/23/pSYVWct.png" alt="pSYVWct.png"></a></p>
+<p>顺次搜到 $3 \to 5 \to 6$，更新 $\text{dfn}$ 和 $\text{low}$，压进栈。</p>
+<p>发现 $6$ 没有可以拓展的点了。因为 $\text{dfn}_6=\text{low}_6$，所以它和它栈上面的点（即使他是栈顶）构成强连通分量。将 $6$ 及 $6$ 以上的点<strong>弹出</strong>。</p>
+<p>回溯发现 $5$ 没有可以拓展的点了。因为 $\text{dfn}_5=\text{low}_5$，所以它和它栈上面的点（即使他是栈顶）构成强连通分量。</p>
+<p>至此找到两个强连通分量：$\{5\}\{6\}$。</p>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pSYVfjP"><img src="https://s1.ax1x.com/2023/01/23/pSYVfjP.png" alt="pSYVfjP.png"></a></p>
+<p>回溯时拓展 $3$ 到 $4$，更新 $\text{dfn}$ 和 $\text{low}$，压进栈。</p>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pSYV6tH"><img src="https://s1.ax1x.com/2023/01/23/pSYV6tH.png" alt="pSYV6tH.png"></a></p>
+<p>回到节点 $1$，因为它被搜索过且在栈中，更新 $3$ 和 $4$ 的 $\text{low}$。</p>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pSYVR1I"><img src="https://s1.ax1x.com/2023/01/23/pSYVR1I.png" alt="pSYVR1I.png"></a></p>
+<p>回溯 $4 \to 3 \to 1$，因为 $1$ 还能拓展，继续到 $2$，$2$ 到 $4$，更新 $\text{low}$。</p>
+<p>虽然 $2$ 没有可以拓展的点了，但是它的 $\text{dfn}_i \neq \text{low}_i$，回溯。</p>
+<p>到 $1$，发现 $\text{dfn}_i = \text{low}_i$，弹出所有点为一个强连通分量。</p>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pSYV29A"><img src="https://s1.ax1x.com/2023/01/23/pSYV29A.png" alt="pSYV29A.png"></a></p>
+<p>至此，Tarjan Algorithm 结束，强连通分量为 $\{1,3,2,4\},\{5\},\{6\}$。</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="- 代码实现"></a>- 代码实现</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">2e5</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> scc[N], stk[N], top, dfn[N], low[N], dfs_num, col_num;</span><br><span class="line"><span class="type">bool</span> vis[N];</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; G[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">tarjan</span><span class="params">(<span class="type">int</span> u)</span></span>&#123;</span><br><span class="line">	dfn[u] = low[u] = ++dfs_num;</span><br><span class="line">	stk[++ top] = u; vis[u] = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v : G[u])&#123;</span><br><span class="line">		<span class="keyword">if</span>(!dfn[v])&#123;</span><br><span class="line">			<span class="built_in">tarjan</span>(v);</span><br><span class="line">			low[u] = <span class="built_in">min</span>(low[u], low[v]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(vis[v])&#123;</span><br><span class="line">			low[u] = <span class="built_in">min</span>(low[u], dfn[v]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(dfn[u] == low[u])&#123;</span><br><span class="line">		vis[u] = <span class="literal">false</span>;</span><br><span class="line">		scc[u] = ++col_num;</span><br><span class="line">		<span class="keyword">while</span>(stk[top] != u)&#123;</span><br><span class="line">			scc[stk[top]] = col_num;</span><br><span class="line">			vis[stk[top--]] = <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		--top;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">// initalize graph</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(!dfn[i]) <span class="built_in">tarjan</span>(i);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="「割边」（桥）"><a href="#「割边」（桥）" class="headerlink" title="- 「割边」（桥）"></a>- 「割边」（桥）</h2><h3 id="何为「割边」"><a href="#何为「割边」" class="headerlink" title="- 何为「割边」"></a>- 何为「割边」</h3><p>在<strong>无向图</strong>中，如果把一条边删掉，导致这个图的极大联通子图数量增加，那么这条边就叫「割边」，也称作「桥」。</p>
+<p>比如，下图：</p>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pSGyj2j"><img src="https://s1.ax1x.com/2023/01/21/pSGyj2j.png" alt="pSGyj2j.png"></a></p>
+<p>割去 $4 \leftrightarrow 5$ 这一条边后，整个图被分成了两部分，联通块数量增加。</p>
+<p>可以证明，整个图只有这一条割边。</p>
+<h3 id="Tarjan-求割边"><a href="#Tarjan-求割边" class="headerlink" title="- Tarjan 求割边"></a>- Tarjan 求割边</h3><p>我们还是来定义一下 $\text{dfn}$ 和 $\text{low}$ 的含义。</p>
+<ul>
+<li><p>$\text{dfn}$：时间戳，表示在 dfs 树中是第几个被访问到的。</p>
+</li>
+<li><p>$\text{low}$：追溯值数组，表示以 $x$ 为根的搜索树上的点<strong>以及</strong>通过一条不在搜索树上的边能达到的结点中的最小编号。</p>
+</li>
+</ul>
+<p>我们在访问到节点 $u$ 时，初始化 $\text{dfn}_u=\text{low}_u=dfs_num$，表示它能追溯到他自己。和 Tarjan 求 scc 不同，求割边不需要维护手工栈。</p>
+<p>然后我们接着访问它下面的一个节点：</p>
+<ol>
+<li>它没被访问过，就先 $\text{dfs}(v)$，对他进行深搜，并在回溯过程中以 $\text{low}_v$ 更新 $\text{low}_u$（因为 $v$ 可以访问到的节点 $u$ 一定也可以访问到）。</li>
+<li>它被访问过，且<strong>不是它在 dfs 树上的父节点</strong>，根据 $\text{low}$ 的定义，用 $\text{dfn}_v$ 更新 $\text{low}_u$。</li>
+</ol>
+<p>接下来我们想一想什么时候 $u \leftrightarrow v$ 这条边是割边。</p>
+<p>显然，如果一条边连接的 $u,v$ 有 $\text{low}_v&gt;\text{dfn}_u$，就说明 $v$ 能访问到的最早的节点还比 $u$ 晚。这说明如果 $v$ 想到 $u$，只能通过 $u \leftrightarrow v$ 这条边，于是这条边是割边。</p>
+<h3 id="代码实现（以-UVA796-为例）"><a href="#代码实现（以-UVA796-为例）" class="headerlink" title="- 代码实现（以 UVA796 为例）"></a>- 代码实现（以 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/UVA796">UVA796</a> 为例）</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">2e5</span> + <span class="number">5</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> M = <span class="number">1e6</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> dfn[N], low[N], dfs_num;</span><br><span class="line"><span class="type">bool</span> bridge[M];</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">graph</span>&#123;</span><br><span class="line">	<span class="type">int</span> to, next;</span><br><span class="line">&#125;G[N];</span><br><span class="line"><span class="type">int</span> head[N], cnt;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">addEdge</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> v)</span></span>&#123;</span><br><span class="line">	G[++cnt] = &#123;v, head[u]&#125;; head[u] = cnt;</span><br><span class="line">&#125;</span><br><span class="line">vector&lt;pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt; &gt; cut;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">tarjan</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> fa)</span></span>&#123;</span><br><span class="line">	dfn[u] = low[u] = ++dfs_num;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = head[u]; i; i = G[i].next)&#123;</span><br><span class="line">		<span class="type">int</span> v = G[i].to;</span><br><span class="line">		<span class="keyword">if</span>(!dfn[v])&#123;</span><br><span class="line">			<span class="built_in">tarjan</span>(v, u);</span><br><span class="line">			<span class="keyword">if</span>(low[v] &gt; dfn[u])&#123;</span><br><span class="line">				bridge[i] = bridge[i ^ <span class="number">1</span>] = <span class="literal">true</span>;</span><br><span class="line">				cut.<span class="built_in">push_back</span>(&#123;<span class="built_in">min</span>(u, v), <span class="built_in">max</span>(u, v)&#125;);</span><br><span class="line">			&#125;</span><br><span class="line">			low[u] = <span class="built_in">min</span>(low[u], low[v]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(v != fa)&#123;</span><br><span class="line">			low[u] = <span class="built_in">min</span>(low[u], dfn[v]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;n))</span><br><span class="line">		<span class="built_in">solve</span>();</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">	vector&lt;pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; &gt; ().<span class="built_in">swap</span>(cut);</span><br><span class="line">	<span class="built_in">memset</span>(head, <span class="number">0</span>, (n + <span class="number">5</span>) * <span class="keyword">sizeof</span> head[<span class="number">0</span>]);</span><br><span class="line">	<span class="built_in">memset</span>(dfn, <span class="number">0</span>, (n + <span class="number">5</span>) * <span class="keyword">sizeof</span> dfn[<span class="number">0</span>]);</span><br><span class="line">	<span class="built_in">memset</span>(low, <span class="number">0</span>, (n + <span class="number">5</span>) * <span class="keyword">sizeof</span> low[<span class="number">0</span>]);</span><br><span class="line">	<span class="built_in">memset</span>(bridge, <span class="number">0</span>, (cnt + <span class="number">5</span>) * <span class="keyword">sizeof</span> bridge[<span class="number">0</span>]);</span><br><span class="line">	cnt = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">		<span class="type">int</span> u, k;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d (%d)&quot;</span>, &amp;u, &amp;k); ++u;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>; j &lt;= k; j++)&#123;</span><br><span class="line">			<span class="type">int</span> v;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;v); ++v;</span><br><span class="line">			<span class="built_in">addEdge</span>(u, v);</span><br><span class="line">			<span class="built_in">addEdge</span>(v, u);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(!dfn[i]) <span class="built_in">tarjan</span>(i, <span class="number">0</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">sort</span>(cut.<span class="built_in">begin</span>(), cut.<span class="built_in">end</span>());</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d critical links\n&quot;</span>, (<span class="type">int</span>)cut.<span class="built_in">size</span>());</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> edge: cut) <span class="built_in">printf</span>(<span class="string">&quot;%d - %d\n&quot;</span>, edge.first - <span class="number">1</span>, edge.second - <span class="number">1</span>);</span><br><span class="line">	<span class="built_in">putchar</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="「割点」（割顶）"><a href="#「割点」（割顶）" class="headerlink" title="- 「割点」（割顶）"></a>- 「割点」（割顶）</h2><h3 id="何为「割点」"><a href="#何为「割点」" class="headerlink" title="- 何为「割点」"></a>- 何为「割点」</h3><p>在<strong>无向图</strong>中，如果把一个点及其连到他的所有边删掉，导致这个图的极大联通子图数量增加，那么这条边就叫「割点」，也称作「割顶」。</p>
+<p>例如下图：</p>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pSYkD0g"><img src="https://s1.ax1x.com/2023/01/23/pSYkD0g.png" alt="pSYkD0g.png"></a></p>
+<p>我们看到，把 $5$ 删掉之后，整个图被分成了 $\{1,4,3,2\},\{6\}$ 两个部分，联通块数量增加，所以 $5$ 是割点。</p>
+<p>可以证明，整个图只有 $5$ 是割点。</p>
+<h3 id="Tarjan-求割点"><a href="#Tarjan-求割点" class="headerlink" title="- Tarjan 求割点"></a>- Tarjan 求割点</h3><ul>
+<li><p>$\text{dfn}$：时间戳，表示在 dfs 树中是第几个被访问到的。</p>
+</li>
+<li><p>$\text{low}$：追溯值数组，表示以 $x$ 为根的搜索树上的点<strong>以及</strong>通过一条不在搜索树上的边能达到的结点中的最小编号。</p>
+</li>
+</ul>
+<p>我们在访问到节点 $u$ 时，初始化 $\text{dfn}_u=\text{low}_u=dfs_num$，表示它能追溯到他自己。和 Tarjan 求割边类似的，求割边不需要维护手工栈。</p>
+<p>然后我们接着访问它下面的一个节点：</p>
+<ol>
+<li>它没被访问过，就先 $\text{dfs}(v)$，对他进行深搜，并在回溯过程中以 $\text{low}_v$ 更新 $\text{low}_u$（因为 $v$ 可以访问到的节点 $u$ 一定也可以访问到）。</li>
+<li>它被访问过，且<strong>不是它在 dfs 树上的父节点</strong>，根据 $\text{low}$ 的定义，用 $\text{dfn}_v$ 更新 $\text{low}_u$。</li>
+</ol>
+<blockquote>
+<p><strong>这里不可以用 $\text{low}_v$ 更新 $\text{low}_u$！！！</strong><br>如果之前的 $\text{low}_v$ 是经过 $u$ 的祖先节点的，那么 $\text{low}_v$ 就不能算是 $\text{low}_u$ 的可能情况（因为 $\text{low}_u$ 要<strong>通过一条不在搜索树上的边</strong>），而 $\text{dfn}_v$ 是确定的，可以更新。</p>
+</blockquote>
+<p>接下来我们想一想什么时候 $u \leftrightarrow v$ 这条边上的 $u$ 是割点。</p>
+<p>分情况：</p>
+<ol>
+<li><p>$u$ 是当前搜索树的<strong>根节点</strong>，那么，如果它在搜索树上有<strong>两个及以上</strong>的子树，它肯定是割点。因为割去它，一个子树必定无法到达另一个子树。</p>
+</li>
+<li><p>$u$ 不是根节点，那么如果 $\text{low}_v \ge \text{dfn}_u$，说明 $v$ 能追溯到的最早的节点顶多是 $u$ 了，割去 $u$ 会使它访问不到上面的节点。那么 $u$ 是割点。</p>
+</li>
+</ol>
+<h3 id="代码实现（以-洛谷-P3388-为例）"><a href="#代码实现（以-洛谷-P3388-为例）" class="headerlink" title="- 代码实现（以 洛谷 P3388 为例）"></a>- 代码实现（以 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3388">洛谷 P3388</a> 为例）</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">2e5</span> + <span class="number">5</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> M = <span class="number">1e6</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> dfn[N], low[N], dfs_num;</span><br><span class="line"><span class="type">bool</span> cut[N];</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; G[N];</span><br><span class="line"><span class="type">int</span> n, m, cut_num;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">tarjan</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> fa)</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> son = <span class="number">0</span>;</span><br><span class="line">	dfn[u] = low[u] = ++dfs_num;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> &amp;v: G[u])&#123;</span><br><span class="line">		<span class="keyword">if</span>(!dfn[v])&#123;</span><br><span class="line">			++son;</span><br><span class="line">			<span class="built_in">tarjan</span>(v, u);</span><br><span class="line">			low[u] = <span class="built_in">min</span>(low[u], low[v]);</span><br><span class="line">			<span class="keyword">if</span>(u != fa &amp;&amp; low[v] &gt;= dfn[u]) cut[u] = <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(v != fa) low[u] = <span class="built_in">min</span>(low[u], dfn[v]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(u == fa &amp;&amp; son &gt;= <span class="number">2</span>) cut[u] = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;n, &amp;m);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i++)&#123;</span><br><span class="line">		<span class="type">int</span> u, v;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;u, &amp;v);</span><br><span class="line">		G[u].<span class="built_in">push_back</span>(v);</span><br><span class="line">		G[v].<span class="built_in">push_back</span>(u);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">		<span class="keyword">if</span>(!dfn[i]) <span class="built_in">tarjan</span>(i, i);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">		<span class="keyword">if</span>(cut[i]) cut_num++;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, cut_num);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">		<span class="keyword">if</span>(cut[i]) <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="「边双联通分量」"><a href="#「边双联通分量」" class="headerlink" title="- 「边双联通分量」"></a>- 「边双联通分量」</h2><h3 id="何为「边双联通分量」"><a href="#何为「边双联通分量」" class="headerlink" title="- 何为「边双联通分量」"></a>- 何为「边双联通分量」</h3><p>如果对于原图的一个联通分量 $G’ \in G$，无论哪一条边被删除后，这个分量中的任意两个点依然两两可达，那么我们就称 $G’$ 为「边双联通分量」。</p>
+<h3 id="Tarjan-求边双联通分量"><a href="#Tarjan-求边双联通分量" class="headerlink" title="- Tarjan 求边双联通分量"></a>- Tarjan 求边双联通分量</h3><p>显然，一个边双联通分量中<strong>不存在割边</strong>，因为如果有割边的话两个分量就不会联通。</p>
+<p>那么我们要做的事就很清晰了：先把割边删除，然后对于每一个没有上色的点 dfs，并对其联通分量染色。最后染成一色的就是一个边双。</p>
+<p>实现代码时有一个小技巧：不需要<strong>真正地</strong>把割边删除，只需要标记这条边不可走即可。</p>
+<h3 id="代码实现（以-洛谷-P8436-为例）"><a href="#代码实现（以-洛谷-P8436-为例）" class="headerlink" title="- 代码实现（以 洛谷 P8436 为例）"></a>- 代码实现（以 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P8436">洛谷 P8436</a> 为例）</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">6e5</span> + <span class="number">5</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> M = <span class="number">6e6</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> dfn[N], low[N], dfs_num;</span><br><span class="line"><span class="type">bool</span> bridge[M], vis[N];</span><br><span class="line"><span class="type">int</span> n, m, scc_num;</span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt; &gt; cut;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">graph</span>&#123;</span><br><span class="line">	<span class="type">int</span> to, next;</span><br><span class="line">&#125;G[M];</span><br><span class="line"><span class="type">int</span> head[N], cnt = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">addEdge</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> v)</span></span>&#123;G[++cnt] = &#123;v, head[u]&#125;; head[u] = cnt;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">tarjan</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> fa)</span></span>&#123;</span><br><span class="line">	dfn[u] = low[u] = ++dfs_num;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = head[u]; i; i = G[i].next)&#123;</span><br><span class="line">		<span class="type">int</span> v = G[i].to;</span><br><span class="line">		<span class="keyword">if</span>(!dfn[v])&#123;</span><br><span class="line">			<span class="built_in">tarjan</span>(v, u);</span><br><span class="line">			low[u] = <span class="built_in">min</span>(low[u], low[v]);</span><br><span class="line">			<span class="keyword">if</span>(low[v] &gt; dfn[u])</span><br><span class="line">				bridge[i] = bridge[i ^ <span class="number">1</span>] = <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(v != fa) low[u] = <span class="built_in">min</span>(low[u], dfn[v]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> col)</span></span>&#123;</span><br><span class="line">	vis[u] = <span class="literal">true</span>;</span><br><span class="line">	cut[col - <span class="number">1</span>].<span class="built_in">push_back</span>(u);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = head[u]; i; i = G[i].next)&#123;</span><br><span class="line">		<span class="type">int</span> v = G[i].to;</span><br><span class="line">		<span class="keyword">if</span>(vis[v] || bridge[i]) <span class="keyword">continue</span>;</span><br><span class="line">		<span class="built_in">dfs</span>(v, col);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;n, &amp;m);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i++)&#123;</span><br><span class="line">		<span class="type">int</span> u, v;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;u, &amp;v);</span><br><span class="line">		<span class="keyword">if</span>(u == v) <span class="keyword">continue</span>;</span><br><span class="line">		<span class="built_in">addEdge</span>(u, v);</span><br><span class="line">		<span class="built_in">addEdge</span>(v, u);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">		<span class="keyword">if</span>(!dfn[i]) <span class="built_in">tarjan</span>(i, i);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(!vis[i])&#123;</span><br><span class="line">			++scc_num;</span><br><span class="line">			cut.<span class="built_in">push_back</span>(<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;());</span><br><span class="line">			<span class="built_in">dfs</span>(i, scc_num);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, scc_num);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; scc_num; i++)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, cut[i].<span class="built_in">size</span>());</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">auto</span> vertex: cut[i]) <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,vertex);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="「点双联通分量」"><a href="#「点双联通分量」" class="headerlink" title="- 「点双联通分量」"></a>- 「点双联通分量」</h2><h3 id="何为「点双联通分量」"><a href="#何为「点双联通分量」" class="headerlink" title="- 何为「点双联通分量」"></a>- 何为「点双联通分量」</h3><p>如果对于原图的一个联通分量 $G’ \in G$，无论哪个点被删除后，这个分量中的任意两个点依然两两可达，那么我们就称 $G’$ 为「点双联通分量」。</p>
+<p>容易看出，对于原图 $G$，每个割点都存在于<strong>至少两个</strong>联通分量中。</p>
+<blockquote>
+<p>割点连接着原图的两个（或以上）部分，必然每个部分都应将它包含。</p>
+</blockquote>
+<h3 id="Tarjan-求点双联通分量"><a href="#Tarjan-求点双联通分量" class="headerlink" title="- Tarjan 求点双联通分量"></a>- Tarjan 求点双联通分量</h3><p>显然，一个点双联通分量中<strong>不存在割点</strong>，因为如果有割点的话删去之后两个分量就不会联通。</p>
+<p>那么我们要做的事就很清晰了：先把找出割点，然后对于每一个没有上色的点 dfs，并对其联通分量染色，<strong>注意到了割点就不能往下走了</strong>。最后染成一色的就是一个点双。</p>
+<p>注意每个割点会被染色多次，所以你只需要在 dfs 过程中统计即可。</p>
+<h3 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="- 代码实现"></a>- 代码实现</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根据边双改改喵</span></span><br><span class="line"><span class="comment">// 根据边双改改谢谢喵</span></span><br></pre></td></tr></table></figure>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="- Reference"></a>- Reference</h1><ul>
+<li><p><a target="_blank" rel="noopener" href="https://oi-wiki.org/graph/scc/">https://oi-wiki.org/graph/scc/</a></p>
+</li>
+<li><p>$\texttt{[1]}$：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/shadowland/p/5872257.html">https://www.cnblogs.com/shadowland/p/5872257.html</a>，感谢 SHHHS 大佬让我懂得了 Tarjan。</p>
+</li>
+<li>$\texttt{[2]}$：关于这里为什么最好用 $\text{low}_v$ 更新 $\text{low}_u$，下文讲到割点的时候会讲。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Tarjan/" rel="tag"># Tarjan</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/02/29/hello-world/" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">- 前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E3%80%8C%E5%BC%BA%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F%E3%80%8D"><span class="nav-number">1.1.</span> <span class="nav-text">- 「强连通分量」</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%95%E4%B8%BA%E3%80%8C%E5%BC%BA%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F%E3%80%8D"><span class="nav-number">1.1.1.</span> <span class="nav-text">- 何为「强连通分量」</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tarjan"><span class="nav-number">1.1.2.</span> <span class="nav-text">- Tarjan</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E8%A7%A3"><span class="nav-number">1.1.3.</span> <span class="nav-text">- 图解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.1.4.</span> <span class="nav-text">- 代码实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E3%80%8C%E5%89%B2%E8%BE%B9%E3%80%8D%EF%BC%88%E6%A1%A5%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">- 「割边」（桥）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%95%E4%B8%BA%E3%80%8C%E5%89%B2%E8%BE%B9%E3%80%8D"><span class="nav-number">1.2.1.</span> <span class="nav-text">- 何为「割边」</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tarjan-%E6%B1%82%E5%89%B2%E8%BE%B9"><span class="nav-number">1.2.2.</span> <span class="nav-text">- Tarjan 求割边</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%EF%BC%88%E4%BB%A5-UVA796-%E4%B8%BA%E4%BE%8B%EF%BC%89"><span class="nav-number">1.2.3.</span> <span class="nav-text">- 代码实现（以 UVA796 为例）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E3%80%8C%E5%89%B2%E7%82%B9%E3%80%8D%EF%BC%88%E5%89%B2%E9%A1%B6%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">- 「割点」（割顶）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%95%E4%B8%BA%E3%80%8C%E5%89%B2%E7%82%B9%E3%80%8D"><span class="nav-number">1.3.1.</span> <span class="nav-text">- 何为「割点」</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tarjan-%E6%B1%82%E5%89%B2%E7%82%B9"><span class="nav-number">1.3.2.</span> <span class="nav-text">- Tarjan 求割点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%EF%BC%88%E4%BB%A5-%E6%B4%9B%E8%B0%B7-P3388-%E4%B8%BA%E4%BE%8B%EF%BC%89"><span class="nav-number">1.3.3.</span> <span class="nav-text">- 代码实现（以 洛谷 P3388 为例）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E3%80%8C%E8%BE%B9%E5%8F%8C%E8%81%94%E9%80%9A%E5%88%86%E9%87%8F%E3%80%8D"><span class="nav-number">1.4.</span> <span class="nav-text">- 「边双联通分量」</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%95%E4%B8%BA%E3%80%8C%E8%BE%B9%E5%8F%8C%E8%81%94%E9%80%9A%E5%88%86%E9%87%8F%E3%80%8D"><span class="nav-number">1.4.1.</span> <span class="nav-text">- 何为「边双联通分量」</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tarjan-%E6%B1%82%E8%BE%B9%E5%8F%8C%E8%81%94%E9%80%9A%E5%88%86%E9%87%8F"><span class="nav-number">1.4.2.</span> <span class="nav-text">- Tarjan 求边双联通分量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%EF%BC%88%E4%BB%A5-%E6%B4%9B%E8%B0%B7-P8436-%E4%B8%BA%E4%BE%8B%EF%BC%89"><span class="nav-number">1.4.3.</span> <span class="nav-text">- 代码实现（以 洛谷 P8436 为例）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E3%80%8C%E7%82%B9%E5%8F%8C%E8%81%94%E9%80%9A%E5%88%86%E9%87%8F%E3%80%8D"><span class="nav-number">1.5.</span> <span class="nav-text">- 「点双联通分量」</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%95%E4%B8%BA%E3%80%8C%E7%82%B9%E5%8F%8C%E8%81%94%E9%80%9A%E5%88%86%E9%87%8F%E3%80%8D"><span class="nav-number">1.5.1.</span> <span class="nav-text">- 何为「点双联通分量」</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tarjan-%E6%B1%82%E7%82%B9%E5%8F%8C%E8%81%94%E9%80%9A%E5%88%86%E9%87%8F"><span class="nav-number">1.5.2.</span> <span class="nav-text">- Tarjan 求点双联通分量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-1"><span class="nav-number">1.5.3.</span> <span class="nav-text">- 代码实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reference"><span class="nav-number">2.</span> <span class="nav-text">- Reference</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="TheSky233"
+      src="https://cdn.luogu.com.cn/upload/usericon/501865.png">
+  <p class="site-author-name" itemprop="name">TheSky233</p>
+  <div class="site-description" itemprop="description">An OIer / PhOer</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/TheSky233" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;TheSky233" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1602458048@qq.com" title="E-Mail → mailto:1602458048@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.luogu.com.cn/user/501865" title="https:&#x2F;&#x2F;www.luogu.com.cn&#x2F;user&#x2F;501865" rel="noopener" target="_blank">TheSky233's Luogu</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheSky233</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">9k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">8 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
+<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script>
+<script src="/js/algolia-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
