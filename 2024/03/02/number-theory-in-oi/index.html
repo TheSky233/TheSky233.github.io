@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="【学习笔记 &#x2F; 长期更新】OI 中的数论">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【学习笔记】OI中的数论">
+<meta property="og:url" content="http://example.com/2024/03/02/number-theory-in-oi/index.html">
+<meta property="og:site_name" content="TheSky233&#39;s Blog">
+<meta property="og:description" content="【学习笔记 &#x2F; 长期更新】OI 中的数论">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://badges.toozhao.com/badges/01GS5KXNGQGRTFRYKTZBWKNGJV/blue.svg">
+<meta property="article:published_time" content="2024-03-01T20:02:38.000Z">
+<meta property="article:modified_time" content="2024-03-01T20:07:58.790Z">
+<meta property="article:author" content="TheSky233">
+<meta property="article:tag" content="Math">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://badges.toozhao.com/badges/01GS5KXNGQGRTFRYKTZBWKNGJV/blue.svg">
+
+<link rel="canonical" href="http://example.com/2024/03/02/number-theory-in-oi/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【学习笔记】OI中的数论 | TheSky233's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <a target="_blank" rel="noopener" href="https://github.com/TheSky233/TheSky233.github.io" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">TheSky233's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">𝐴𝑛𝑑 𝑖𝑛 𝑡ℎ𝑎𝑡 𝑙𝑖𝑔ℎ𝑡...</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="algolia-results">
+  <div id="algolia-stats"></div>
+  <div id="algolia-hits"></div>
+  <div id="algolia-pagination" class="algolia-pagination"></div>
+</div>
+
+      
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/02/number-theory-in-oi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.luogu.com.cn/upload/usericon/501865.png">
+      <meta itemprop="name" content="TheSky233">
+      <meta itemprop="description" content="An OIer / PhOer">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TheSky233's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【学习笔记】OI中的数论
+        </h1>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-03-02 04:02:38 / 修改时间：04:07:58" itemprop="dateCreated datePublished" datetime="2024-03-02T04:02:38+08:00">2024-03-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>18k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>17 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="【学习笔记-长期更新】OI-中的数论"><a href="#【学习笔记-长期更新】OI-中的数论" class="headerlink" title="【学习笔记 / 长期更新】OI 中的数论"></a>【学习笔记 / 长期更新】OI 中的数论</h1><span id="more"></span>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<li><p><strong>Preface</strong></p>
+<ul>
+<li>0.1 前言</li>
+<li>0.2 常用符号</li>
+<li>0.3 快速幂</li>
+</ul>
+</li>
+<li><p><strong>数论</strong></p>
+<ul>
+<li><p>1 数论基础</p>
+<ul>
+<li>1.1 整除</li>
+<li>1.2 带余除法</li>
+<li>1.3 同余</li>
+<li>1.4 数论函数</li>
+</ul>
+</li>
+<li><p>2 素数</p>
+<ul>
+<li>2.1 唯一分解定理</li>
+<li>2.2 判定素数</li>
+<li>2.3 Miller-Rabin 判定素数<ul>
+<li>2.3.1 费马小定理</li>
+<li>2.3.2 二次探测定理</li>
+<li>2.3.3 Miller-Rabin</li>
+</ul>
+</li>
+<li>2.4 素数筛<ul>
+<li>2.4.1 埃氏筛</li>
+<li>2.4.2 欧拉筛 / 线性筛</li>
+<li>2.4.3 筛法的一些优化</li>
+</ul>
+</li>
+<li>2.5 分解质因数<ul>
+<li>2.5.1 朴素算法</li>
+<li>2.5.2 素数筛优化</li>
+<li>2.5.3 Pollard-Rho</li>
+</ul>
+</li>
+<li>2.6 欧拉函数<ul>
+<li>2.6.1 性质</li>
+<li>2.6.2 欧拉函数</li>
+<li>2.6.3 引理</li>
+<li>2.6.4 求一个数的欧拉函数<ul>
+<li>2.6.4.1 朴素求法 </li>
+<li>2.6.4.2 Pollard-Rho</li>
+</ul>
+</li>
+<li>2.6.5 筛法求欧拉函数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>3 最大公约数</p>
+<ul>
+<li>3.1 最大公约数</li>
+<li>3.2 最小公倍数</li>
+<li>3.3 扩展欧几里得算法<ul>
+<li>3.3.1 用 $\text{exgcd}$ 求解的一个问题</li>
+<li>3.3.2 有理数取余：用 $\text{exgcd}$ 求解的另一个问题</li>
+<li>3.3.3 $\text{exgcd}$ 例题</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>4 数论分块</p>
+<ul>
+<li>4.1 算法</li>
+<li>4.2 例题</li>
+<li>4.3 用数论分块解决的一个问题</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Reference</strong></p>
+</li>
+</ul>
+<h1 id="Preface"><a href="#Preface" class="headerlink" title="- Preface"></a>- Preface</h1><h2 id="0-1-前言"><a href="#0-1-前言" class="headerlink" title="0.1 前言"></a>0.1 前言</h2><p>本文意为作者从 $0$ 开始学习数论，同时也对 <a target="_blank" rel="noopener" href="https://oi-wiki.org/">OI Wiki</a> 的某些内容做补充说明。</p>
+<p>如果你看到有一些小标题没有内容，很正常，作者$\color{white}\small\textbf{不}$会填坑的。</p>
+<p>同时本文用了大量 $\LaTeX$，加载公式较慢属正常现象。</p>
+<p>都看到这了不点个赞吗 /kel</p>
+<p><a target="_blank" rel="noopener" href="https://badges.toozhao.com/stats/01GS5KXNGQGRTFRYKTZBWKNGJV" title="Get your own page views count badge on badges.toozhao.com"><img src="https://badges.toozhao.com/badges/01GS5KXNGQGRTFRYKTZBWKNGJV/blue.svg" alt="Page Views Count"></a></p>
+<h2 id="0-2-常用符号"><a href="#0-2-常用符号" class="headerlink" title="0.2 常用符号"></a>0.2 常用符号</h2><ol>
+<li><p>整除符号：$x \mid y$，表示 $x$ 整除 $y$。</p>
+</li>
+<li><p>取模符号：$x \bmod{y}$，表示 $x$ 除以 $y$ 的余数。</p>
+</li>
+<li><p>互质符号：$x \bot y$，表示 $x$ 与 $y$ 互质。</p>
+</li>
+<li><p>最大公约数：$\gcd(x,y)$ 或 $(x,y)$。</p>
+</li>
+<li><p>最小公倍数：$\operatorname{lcm}(x,y)$ 或 $[x,y]$。</p>
+</li>
+<li><p>阶乘符号：$n!$，表示 $1 \times 2 \times 3 \times \cdots \times n$，特别的，$0!=1$。</p>
+</li>
+<li><p>求和符号：$\sum$，表示特定条件下几个数的和，例如：</p>
+<ul>
+<li>$\sum^n_{i=1} i$ 表示 $1\sim n$ 的和。<ul>
+<li>$\sum_{x \le n,x\bot n} 1$ 表示 $1 \sim n$ 里有几个数和它互质，即 $\varphi(n)$。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>求积符号：$\prod$，表示特定条件下几个数的积，例如：</p>
+<ul>
+<li>$\prod_{i=1}^n i$ 表示 $n$ 的阶乘，即 $n!$。<ul>
+<li>$\prod_{x \mid d}x$ 表示 $d$ 的所有因数的乘积。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>向上取整符号：$\lceil x \rceil$，表示大于等于 $x$ 的最大的整数。</p>
+</li>
+<li><p>向下取整符号：$\lfloor x \rfloor$，表示小于等于 $x$ 的最大的整数。</p>
+</li>
+<li><p>组合数：$\binom{x}{y}$。</p>
+</li>
+<li><p>整数集：$\mathbf{Z}$，表示所有的整数。</p>
+</li>
+<li><p>自然数集：$\mathbf{N}$，表示所有的自然数。</p>
+</li>
+<li><p>实数集：$\mathbf{R}$，表示所有的实数。</p>
+</li>
+<li><p>存在：$\exists x:P(x)$，表示至少存在一个 $x$ 使得 $P(x)$ 的值为真。</p>
+</li>
+</ol>
+<h2 id="0-3-快速幂-Theta-log-n"><a href="#0-3-快速幂-Theta-log-n" class="headerlink" title="0.3 快速幂 $\Theta(\log n)$"></a>0.3 快速幂 $\Theta(\log n)$</h2><p>从熟悉的快速幂开始学起。</p>
+<blockquote>
+<p>题意：给定 $a,b$，求 $a^b$。</p>
+</blockquote>
+<p>朴素算法是 $\Theta(b)$ 的，较慢。</p>
+<p>设 $b$ 的二进制为 $(n_tn_{t-1}\cdots n_2n_1)_2$，考虑把 $b$ 二进制分解，即 $n_t2^{p}+n_{t-1}2^{p-1}+ \cdots + n_12^1+n_02^0$，其中 $n \in\{0,1\}$，$p$ 为非负整数，易得 $p= \lfloor \log_2n\rfloor$。</p>
+<p>又由幂的性质可得，$a^{x+y} = a^x \times a^y$。</p>
+<p>于是 $a^b$ 就可写为如下形式：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+a^b &= a^{n_t2^{p}+n_{t-1}2^{p-1}+ \cdots + n_12^1+n_02^0}\\
+&= a^{n_t2^{p}} \times a^{n_{t-1}2^{p-1}} \times \dots a^{n_02^0}
+\end{aligned}</script><p>又有 $x^{2y}=x^y \cdot x^y=(x^y)^2$，我们就可以在 $\log_2 n$ 的时间算完上式了。</p>
+<ul>
+<li>例如：</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+13&=(1101)_2\\
+&=1 \times 2^3+ 1 \times2^2 + 0 \times 2^1 + 1 \times 2^0\\
+\end{aligned}</script><script type="math/tex; mode=display">\downarrow</script><script type="math/tex; mode=display">
+\begin{aligned}
+5^{13}&=5^{2^3}\times 5^{2^2} \times 5^{2^0}\\
+&=5^8 \times 5^4 \times 5^1\\
+&=390625 \times 625 \times 5\\
+&=1220703625
+
+\end{aligned}</script><p>由于取模并不影响乘法的运算，所以这种方法也可以求 $a^b \bmod k$。</p>
+<p><strong>Sample Code</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 0.3 qpow</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T </span>= <span class="type">long</span> <span class="type">long</span>&gt; <span class="function">T <span class="title">qpow</span><span class="params">(T a, T b,<span class="type">const</span> T mod = b - <span class="number">2</span>)</span></span>&#123;</span><br><span class="line">	T ans = <span class="number">1</span>, base = a;</span><br><span class="line">	<span class="keyword">while</span>(b)&#123;</span><br><span class="line">		<span class="keyword">if</span>(b &amp; <span class="number">1</span>) ans = ans * base % mod;</span><br><span class="line">		base = base * base % mod;</span><br><span class="line">		b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="数论"><a href="#数论" class="headerlink" title="- 数论"></a>- 数论</h1><h2 id="1-数论基础"><a href="#1-数论基础" class="headerlink" title="1 数论基础"></a>1 数论基础</h2><h3 id="1-1-整除"><a href="#1-1-整除" class="headerlink" title="1.1 整除"></a>1.1 整除</h3><p>设 $a,b \in \mathbf{Z},a \neq 0$，且如果 $\exists q \in \mathbf{Z}$，使得 $b = aq$，那么我们就说 $a$ 整除 $b$，或者 $b$ 能被 $a$ 整除，记作 $a \mid b$，其中 $b$ 是 $a$ 的倍数，$a$ 是 $b$ 的因数。</p>
+<p>否则我们就称 $b$ 不能被 $a$ 整除，记作 $a \nmid b$。</p>
+<p>性质：</p>
+<ul>
+<li>$a \mid b = -a \mid b = a \mid -b = |a| \mid |b|$。</li>
+<li>$a \mid b \land b \mid c \implies a \mid c$</li>
+<li>$a\mid b\land a\mid c\iff\forall x,y\in\mathbf{Z}, a\mid(xb+yc)$</li>
+<li>$a\mid b\land b\mid a\implies b=\pm a$</li>
+<li>设 $m \neq 0$，则 $a\mid b\iff ma\mid mb$。</li>
+<li>设 $b \ne 0$，那么 $a \mid b \implies |a| \le |b|$。</li>
+<li>设 $a \ne 0,b=qa+c$，那么 $a \mid b \iff a \mid c$。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/paste/knj1l608">以上性质的证明</a>。</p>
+<p>对于整数 $b \ne 0$，$b$ 的约束只有有限个，$0$ 是任何不等于 $0$ 的整数的倍数。</p>
+<p>对于整数 $b \ne 0,1$，$b$ 有四个显然因数为 $\pm 1,\pm b$，特别的，$1$ 只有两个显然因数。</p>
+<p>对于整数 $b \ne 0$ 的真因数称为 $b$ 非显然因数的因数。</p>
+<ul>
+<li>设 $b\ne 0$，那么当 $d$ 遍历 $b$ 的因数的时候，$\frac{b}{d}$ 也在遍历 $b$ 的因数。</li>
+<li>设 $b&gt; 0$，那么当 $d$ 遍历 $b$ 的正因数的时候，$\frac{b}{d}$ 也在遍历 $b$ 的正因数。</li>
+</ul>
+<h3 id="1-2-带余除法"><a href="#1-2-带余除法" class="headerlink" title="1.2 带余除法"></a>1.2 带余除法</h3><p>设 $a,b \in \mathbf{Z}$，$a \neq 0$，则有 $b=qa+r$，其中 $q=\left\lfloor \dfrac{b}{a} \right\rfloor,0 \le r \le |a|$。</p>
+<p>这里的 $r$ 被称为最小非负余数，也可以写成 $r = b\bmod{a}$。</p>
+<p>其中 $r=b-aq=b-a\left\lfloor\dfrac{b}{a}\right\rfloor$。</p>
+<p><strong>性质</strong></p>
+<ul>
+<li>连续 $a$ 个整数除以 $a$，余数一定且正好取到 $0 \sim a-1$ 各一个，其中<strong>有且仅有</strong>一个正好被 $a$ 整除。</li>
+<li>任何一个整数除以 $a$，余数一定为 $0 \sim a-1$ 其中一个。</li>
+</ul>
+<h3 id="1-3-同余"><a href="#1-3-同余" class="headerlink" title="1.3 同余"></a>1.3 同余</h3><h3 id="1-4-数论函数"><a href="#1-4-数论函数" class="headerlink" title="1.4 数论函数"></a>1.4 数论函数</h3><h3 id="1-4-1-积性函数"><a href="#1-4-1-积性函数" class="headerlink" title="1.4.1 积性函数"></a>1.4.1 积性函数</h3><p>指的是如果 $\forall x,y\in\mathbf{N}^*,\gcd(x,y)=1$ 且 $f(1)=1$，那么 $f(x\times y)=f(x) \times f(y)$。</p>
+<p>特殊的，如果 $\forall x,y\in\mathbf{N}^<em>$ 且 $f(1)=1$，那么 $f(x\times y)=f(x) \times f(y)$，则称 $f(n)$ 为<em>*完全</em></em>积性函数。</p>
+<ul>
+<li>如欧拉函数 $\varphi(a\times b)=\varphi(a) \times \varphi(b)\ \{\gcd(a,b)=1\}$</li>
+</ul>
+<h2 id="2-素数"><a href="#2-素数" class="headerlink" title="2 素数"></a>2 素数</h2><p>定义：若整数 $b \ne 0, \pm1$ 只有四个显然因数的时候，$b$ 是素数，否则 $b$ 是合数。</p>
+<p>$\pm b$ 总是同为素数或同为合数。<strong>特别的，若无特殊说明，则素数指正素数</strong>。</p>
+<h3 id="2-1-唯一分解定理"><a href="#2-1-唯一分解定理" class="headerlink" title="2.1 唯一分解定理"></a>2.1 唯一分解定理</h3><ul>
+<li>合数总能分解成几个素数的乘积。</li>
+</ul>
+<p>形式化的，设 $a$ 为合数，$p$ 为素数集，则</p>
+<script type="math/tex; mode=display">a=p_1^{\alpha_1}p_2^{\alpha_2}\cdots p_n^{\alpha_n}</script><ul>
+<li>例如</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+24&=2 \times 2 \times 2 \times 3\\
+&=2^3 \times 3^1
+\end{aligned}</script><ul>
+<li>应用：<a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc280/tasks/abc280_d">https://atcoder.jp/contests/abc280/tasks/abc280_d</a></li>
+</ul>
+<h3 id="2-2-判定素数-Theta-sqrt-n"><a href="#2-2-判定素数-Theta-sqrt-n" class="headerlink" title="2.2 判定素数 $\Theta(\sqrt{n})$"></a>2.2 判定素数 $\Theta(\sqrt{n})$</h3><p>通过素数的性质可知，对于素数 $n$，$\forall k\in \mathbb{Z},k \in[2,n)$，有 $ k \nmid n$，于是不难想到一个 $\Theta(n)$ 的朴素程序，用 $2 \sim n-1$ 的所有正整数对 $n$ 进行试除，如果 $n \bmod{k}=0$，说明 $p$ 除了显然因数外，还有 $k$ 和 $\frac{n}{k}$ 的因数，因此判定为合数。</p>
+<p><strong>Sample Code</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.2.2 prime check O(n)</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">check_linear</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>; i &lt; x; i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(x % i == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>显然，当 $n$ 到 $10^{9}$ 级别时，此种方法便会超时。</p>
+<p>注意到 $1.1$ 的一句话：<strong>设 $b&gt; 0$，那么当 $d$ 遍历 $b$ 的正因数的时候，$\frac{b}{d}$ 也在遍历 $b$ 的正因数。</strong></p>
+<p>也就是说，当 $k$ 访问到 $\sqrt{n}$ 的时候，如果此时还存在 $n \bmod{k}=0$，那么它就会在访问到 $\frac{n}{k}$ 的时候被判定为合数，因此，$\sqrt{n}$ 之后的判定完全是多余的，因此时间复杂度便可降到 $\Theta(\sqrt{n})$ 级别。</p>
+<p><strong>Sample Code</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.2.2 prime check O(sqrt(n))</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">check_sqrt</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>; i * i &lt;= x; i++)&#123; <span class="comment">//注意这里是 &lt;=x，不然可能把一些完全平方数放过去</span></span><br><span class="line">		<span class="keyword">if</span>(x % i == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-Miller-Rabin-判定素数-Theta-k-log-3n"><a href="#2-3-Miller-Rabin-判定素数-Theta-k-log-3n" class="headerlink" title="2.3 Miller-Rabin 判定素数 $\Theta(k \log^3n)$"></a>2.3 Miller-Rabin 判定素数 $\Theta(k \log^3n)$</h3><p>有时候，要判定的数的级别是 $10^{18}$ 级别的，这时候 $\Theta(\sqrt{n})$ 的 <code>check_sqrt</code> 就会 TLE，这时我们可以对其进行 Miller-Rabin 素数测试，来判断其是否为素数。</p>
+<h4 id="2-3-1-费马小定理（Fermat’s-Little-Theorem）"><a href="#2-3-1-费马小定理（Fermat’s-Little-Theorem）" class="headerlink" title="2.3.1 费马小定理（Fermat’s Little Theorem）"></a>2.3.1 费马小定理（Fermat’s Little Theorem）</h4><blockquote>
+<p>有质数 $p$，则对于正整数 $a \nmid p$，有 $a^{p-1} \equiv 1\pmod{p}$。</p>
+</blockquote>
+<p>考虑它的逆否命题，我们就有了一种判断素数的方法：</p>
+<blockquote>
+<p>如果 $a^{p-1} \not \equiv 1 \pmod{p}$，则 $p$ 不是素数。</p>
+</blockquote>
+<ul>
+<li>注意 FLT 的逆定理是不成立的，即对于正整数 $1 \le a &lt;p$，有 $a^{p-1} \equiv 1\pmod{p}$，则 $p$ 是质数，一个典型的例子是 <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%8D%A1%E8%BF%88%E5%85%8B%E5%B0%94%E6%95%B0/9083263?fromModule=lemma_inlink">$\text{Carmichael}$ 数</a>。</li>
+</ul>
+<h4 id="2-3-2-二次探测定理"><a href="#2-3-2-二次探测定理" class="headerlink" title="2.3.2 二次探测定理"></a>2.3.2 二次探测定理</h4><p>对于上面的 $\text{Carmichael}$ 数，FLT 不能判断其素性。此时就可以用到<strong>二次探测定理</strong>。</p>
+<blockquote>
+<p>如果 $p$ 是一个素数，$0 &lt; x &lt; p$，那么 $x^2 \equiv 1 \pmod{p}$ 的解只有两个：$x_1=1,x_2=p-1$。</p>
+</blockquote>
+<p>证明：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+x^2 \equiv 1 \pmod{p}\\
+x^2-1 \equiv 0 \pmod{p}\\
+(x+1)(x-1) \equiv 0\pmod{p}
+\end{aligned}</script><p>于是有 $(x+1)(x-1) \mid p$，故得出 $1 \sim p-1$ 的正整数只有 $1$ 和 $p-1$ 两个解，故原命题得证。</p>
+<h4 id="2-3-3-Miller-Rabin"><a href="#2-3-3-Miller-Rabin" class="headerlink" title="2.3.3 Miller-Rabin"></a>2.3.3 Miller-Rabin</h4><p>于是我们有了一种判定素数的方法：Miller-Rabin。</p>
+<p>具体步骤：</p>
+<ol>
+<li>如果 $n=1$ 或 $n \bmod{2}=0$，直接返回 <code>false</code>;</li>
+<li>把 $a^{n-1}$ 化成 $(a^{\frac{n-1}{2}})^2,(a^{\frac{n-1}{4}})^{2^2}$ 的形式，直到不能化为止，设最后的底数为 $a^u$。</li>
+<li>选择素数 $a$，计算 $a^u \bmod n$。</li>
+<li>不断运用二次探测定理，判断当 $x^2 \equiv 1 \pmod{p}$ 成立时，是否 $x=1$ 或 $x=n-1$，如果不是即探测失败，返回 <code>false</code>。</li>
+<li>如果满足条件，就判断 $a^{n-1} \equiv1\pmod{p}$ 是否成立，如成立，则<strong>这一轮</strong> Miller-Rabin 检测结束。</li>
+</ol>
+<p>一般来说素数 $a$ 的选择在 <code>long long</code> 范围内选择 $2,3,5,7,11,13,17,19,23$ 这九个数即可 $100\%$ 正确。</p>
+<p>时间复杂度：$\Theta(k \log^3n)$，$k$ 即为选择了几个素数进行检测。</p>
+<p><strong>Sample Code</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.2.3.3 Miller-Rabin</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> ull;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">double</span> ld;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">mul</span><span class="params">(ll a,ll b,ll mod)</span></span>&#123;</span><br><span class="line"><span class="comment">// 快速乘，原理是用 ull 的溢出解决 ll 的溢出</span></span><br><span class="line">    ll c=(ld)a/mod*b;</span><br><span class="line">    ll res=(ull)a*b-(ull)c*mod;</span><br><span class="line">    <span class="keyword">return</span> (res+mod)%mod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">qpow</span><span class="params">(ll a,ll b,<span class="type">const</span> ll p)</span></span>&#123;</span><br><span class="line"><span class="comment">// 快速幂</span></span><br><span class="line">	ll ans=<span class="number">1ll</span>,base=a;</span><br><span class="line">	<span class="keyword">while</span>(b)&#123;</span><br><span class="line">		<span class="keyword">if</span>(b&amp;<span class="number">1</span>) ans=<span class="built_in">mul</span>(ans,base,p);</span><br><span class="line">		base=<span class="built_in">mul</span>(base,base,p);</span><br><span class="line">		b&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ll ud[]=&#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">11</span>,<span class="number">13</span>,<span class="number">17</span>,<span class="number">19</span>,<span class="number">23</span>&#125;; <span class="comment">// 素数集</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">MRtest</span><span class="params">(ll n)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(n%<span class="number">2</span>==<span class="number">0</span> || n&lt;<span class="number">3</span>) <span class="keyword">return</span> n==<span class="number">2</span>; <span class="comment">// 特判</span></span><br><span class="line">	ll u=n<span class="number">-1</span>,t=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(u%<span class="number">2</span>==<span class="number">0</span>) u&gt;&gt;=<span class="number">1</span>,++t; <span class="comment">// 分解为 a^u</span></span><br><span class="line">	ll x,pre;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> p:ud)&#123; <span class="comment">// 选择素数</span></span><br><span class="line">		<span class="keyword">if</span>(p==n) <span class="keyword">return</span> <span class="literal">true</span>; <span class="comment">// 特判</span></span><br><span class="line">		x=<span class="built_in">qpow</span>(p,u,n);</span><br><span class="line">		pre=x;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=t;i++)&#123;</span><br><span class="line">			x=<span class="built_in">mul</span>(x,x,n);</span><br><span class="line">			<span class="keyword">if</span>(x==<span class="number">1</span> &amp;&amp; pre!=<span class="number">1</span> &amp;&amp; pre!=n<span class="number">-1</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			pre=x; <span class="comment">// 二次探测</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(x!=<span class="number">1</span>) <span class="keyword">return</span> <span class="literal">false</span>; <span class="comment">// 费马小定理</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>应用：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/U82118">https://www.luogu.com.cn/problem/U82118</a></li>
+</ul>
+<h2 id="2-4-素数筛"><a href="#2-4-素数筛" class="headerlink" title="2.4 素数筛"></a>2.4 素数筛</h2><p>通过 $1.2.1$ 的素数判定，我们知道了如何判定一个数是否是素数，但是，如果要判断 $1 \sim n$ 中所有的数是否是素数呢？</p>
+<p>一个显然的做法是扫一遍区间，用根号做法或者 Miller-Rabin 判断每一个数是否是素数，但是 $\Theta(n \sqrt{n})$ 或 $\Theta(n k\log^3 n)$ 的复杂度显然太慢，于是我们引进了素数筛的思想。</p>
+<h3 id="2-4-1-埃氏筛-Theta-n-log-log-n"><a href="#2-4-1-埃氏筛-Theta-n-log-log-n" class="headerlink" title="2.4.1 埃氏筛 $\Theta(n \log \log n)$"></a>2.4.1 埃氏筛 $\Theta(n \log \log n)$</h3><p>由<strong>唯一分解定理（$2.1$）</strong>，每个合数都可以被分解成若干个质数的乘积，换句话说，<strong>每个合数都是它的质因数的倍数</strong>。</p>
+<p>于是我们可以得到这样一种筛法（埃拉托斯特尼筛法，简称埃氏筛）：建立一个标记数组 <code>vis</code>，每次从小到大选择未被标记的数，把它的倍数都标记为合数，这样在结束后未被标记的数就是素数。</p>
+<p>时间复杂度为 $\Theta(n \log \log n)$，近乎线性。</p>
+<p><strong>Sample Code</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.2.4.1 Eratosthenes sieve</span></span><br><span class="line"><span class="type">bool</span> vis[<span class="number">1000005</span>]; <span class="comment">//标记此数是不是素数</span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; prime; <span class="comment">//素数集</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Eratosthenes_sieve</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">	vis[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(vis[i] == <span class="number">0</span>)&#123;</span><br><span class="line">			prime.<span class="built_in">push_back</span>(i);</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> j = i + i; j &lt;= n; j += i)&#123;</span><br><span class="line">				vis[j] = <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-4-2-欧拉筛-线性筛-Theta-n"><a href="#2-4-2-欧拉筛-线性筛-Theta-n" class="headerlink" title="2.4.2 欧拉筛 / 线性筛 $\Theta(n)$"></a>2.4.2 欧拉筛 / 线性筛 $\Theta(n)$</h3><p>Eratosthenes sieve 已经足够快了，但是碰到一些 $n=10^7$ 的筛就显然会 TLE。继续改进算法。</p>
+<p>我们注意到，在埃氏筛中，$42$ 被筛了三遍（分别为 $2,3,7$），比较耗费时间，事实上，如果一个数只被被其最小的素因子筛一次，那么复杂度就会降到 $\Theta(n)$，此种方法被称作欧拉筛或线性筛，见代码：</p>
+<p><strong>Sample Code</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.2.4.2 Euler sieve</span></span><br><span class="line"><span class="type">bool</span> vis[<span class="number">1000005</span>];</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; prime;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Euler_sieve</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">	vis[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(!vis[i]) prime.<span class="built_in">push_back</span>(i);</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; (<span class="type">size_t</span>)j &lt; prime.<span class="built_in">size</span>(); j++)&#123;</span><br><span class="line">			<span class="type">int</span> it = prime.<span class="built_in">at</span>(j);</span><br><span class="line">			<span class="keyword">if</span>(<span class="number">1ll</span> * it * i &gt; n) <span class="keyword">break</span>;</span><br><span class="line">			vis[<span class="number">1ll</span> * it * i] = <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span>(i % it == <span class="number">0</span>)&#123;</span><br><span class="line">				<span class="comment">// i % pri[j] == 0</span></span><br><span class="line">		        <span class="comment">// 换言之，i 之前被 pri[j] 筛过了</span></span><br><span class="line">		        <span class="comment">// 由于 pri 里面质数是从小到大的，所以 i 乘上其他的质数的结果一定也是</span></span><br><span class="line">		        <span class="comment">// pri[j] 的倍数 它们都被筛过了，就不需要再筛了，所以这里直接 break</span></span><br><span class="line">		        <span class="comment">// 掉就好了</span></span><br><span class="line">		        <span class="comment">// From OI-Wiki</span></span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>应用：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3383">https://www.luogu.com.cn/problem/P3383</a></li>
+</ul>
+<h3 id="2-4-3-筛法的一些优化"><a href="#2-4-3-筛法的一些优化" class="headerlink" title="2.4.3 筛法的一些优化"></a>2.4.3 筛法的一些优化</h3><ul>
+<li>空间优化：当空间限制很紧的时候，可以用 <code>std::bitset</code> 代替 <code>bool</code> 数组节省空间，但是这会使程序效率降低，可能会 TLE（以空间换时间）。</li>
+</ul>
+<h2 id="2-5-分解质因数"><a href="#2-5-分解质因数" class="headerlink" title="2.5 分解质因数"></a>2.5 分解质因数</h2><p>给定一个数 $n \in \mathbf{N}^+$，分解出它的质因数。</p>
+<h3 id="2-5-1-朴素算法-Theta-sqrt-n"><a href="#2-5-1-朴素算法-Theta-sqrt-n" class="headerlink" title="2.5.1 朴素算法 $\Theta(\sqrt{n})$"></a>2.5.1 朴素算法 $\Theta(\sqrt{n})$</h3><p>根据<strong>唯一分解定理</strong>，一个合数总能被分解成几个素数的乘积，于是我们就有了一个类似根号时间内判定素数的程序，其时间复杂度也为 $\Theta(\sqrt n)$。</p>
+<p><strong>Sample Code</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt; &gt; <span class="built_in">factor</span>(ll x)&#123; <span class="comment">// 返回一个 pair&lt;int,int&gt; 类型的 vector</span></span><br><span class="line">	vector&lt;pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt; &gt; v; <span class="comment">// first 存储素因子，second 存储素因子的次数</span></span><br><span class="line">	<span class="keyword">for</span>(ll i=<span class="number">2</span>;i*i&lt;=x;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(x%i==<span class="number">0</span>)&#123;</span><br><span class="line">			<span class="type">int</span> t=<span class="number">0</span>;</span><br><span class="line">			<span class="keyword">while</span>(x%i==<span class="number">0</span>) t++,x/=i;</span><br><span class="line">			v.<span class="built_in">push_back</span>(<span class="built_in">make_pair</span>(i,t));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(x&gt;<span class="number">1</span>) v.<span class="built_in">push_back</span>(<span class="built_in">make_pair</span>(x,<span class="number">1</span>)); <span class="comment">// 如果 x 本身就是个素数</span></span><br><span class="line">	<span class="keyword">return</span> v;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-5-2-素数筛优化-Theta-sqrt-frac-n-ln-n"><a href="#2-5-2-素数筛优化-Theta-sqrt-frac-n-ln-n" class="headerlink" title="2.5.2 素数筛优化 $\Theta(\sqrt{\frac{n}{\ln n}})$"></a>2.5.2 素数筛优化 $\Theta(\sqrt{\frac{n}{\ln n}})$</h3><p>我们知道，$n$ 之内的素数个数大约为 $\dfrac{n}{\ln n}$ 个，我们如果事先把这些素数筛出来再加上上面朴素算法就能做到以上的复杂度。</p>
+<p>代码和上文几乎一样，只是把 $i$ 放到素数集里面循环，代码就不放了。</p>
+<ul>
+<li>实际上，筛出素数也需要 $\Theta(n)$ 的时间，所以如果 $n$ 很大，还是得选择更优秀的算法，如下文介绍的 <em>Pollard-Rho</em>。</li>
+</ul>
+<h3 id="2-5-3-Pollard-Rho-Theta-n-frac-1-4"><a href="#2-5-3-Pollard-Rho-Theta-n-frac-1-4" class="headerlink" title="2.5.3 Pollard-Rho $\Theta(n^{\frac{1}{4}})$"></a>2.5.3 Pollard-Rho $\Theta(n^{\frac{1}{4}})$</h3><h2 id="2-6-欧拉函数-varphi-n"><a href="#2-6-欧拉函数-varphi-n" class="headerlink" title="2.6 欧拉函数 $\varphi(n)$"></a>2.6 欧拉函数 $\varphi(n)$</h2><h3 id="2-6-1-性质"><a href="#2-6-1-性质" class="headerlink" title="2.6.1 性质"></a>2.6.1 性质</h3><p>首先有欧拉函数是积性函数，也就是说，如果 $\gcd(a,b)=1$，有 $\varphi(a \times b)=\varphi(a) \times \varphi(b)$。</p>
+<p>由素数定义可知，如果 $p$ 为素数，$\varphi(p)=p-1$。</p>
+<h3 id="2-6-2-欧拉函数（Euler’s-totient-function）"><a href="#2-6-2-欧拉函数（Euler’s-totient-function）" class="headerlink" title="2.6.2 欧拉函数（Euler’s totient function）"></a>2.6.2 欧拉函数（Euler’s totient function）</h3><p>凭借 <strong>2.6.1</strong> 和 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/501865/number-theory-in-oi#:~:text=2.1"><strong>2.1 唯一分解定理</strong></a><br>于是我们就有了欧拉函数的计算方法，设合数 $n=\prod^s_{i=1} p_i^{k_i}$，则有</p>
+<script type="math/tex; mode=display">\varphi(n)=n \times\prod_{i=1}^{s} \dfrac{p_i-1}{p_i}</script><p>我们来分析一下这个公式是怎么来的。</p>
+<h3 id="2-6-3-引理"><a href="#2-6-3-引理" class="headerlink" title="2.6.3 引理"></a>2.6.3 引理</h3><p>设 $p$ 为素数集，则 $\varphi(p^k)=p^k-p^{k-1}$。</p>
+<p>这很好证明，$p^k$ 个数中，只有 $p^{k-1}$ 个是 $p$ 的倍数，其他数都不含 $p$ 这个因子，故 $\varphi(p^k)=p^k-p^{k-1}$。</p>
+<p>于是，根据欧拉函数的积性和唯一分解定理可知</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\varphi(n)&=\prod^s_{i=1}\varphi(p_i^{k_i})\\
+&=\prod^s_{i=1} p_i^{k_i}-p_i^{k_i-1}\\
+&=\prod^s_{i=1} p_i^{k_i-1}\cdot (p_i-1)\\
+&=\prod^s_{i=1} p_i^{k_i}\cdot \dfrac{p_i-1}{p_i}\\
+&=n \times \prod^s_{i=1} \dfrac{p_i-1}{p_i}
+\end{aligned}</script><h3 id="2-6-4-求一个数的欧拉函数"><a href="#2-6-4-求一个数的欧拉函数" class="headerlink" title="2.6.4 求一个数的欧拉函数"></a>2.6.4 求一个数的欧拉函数</h3><h4 id="2-6-4-1-朴素求法-Theta-sqrt-n"><a href="#2-6-4-1-朴素求法-Theta-sqrt-n" class="headerlink" title="2.6.4.1 朴素求法 $\Theta(\sqrt n)$"></a>2.6.4.1 朴素求法 $\Theta(\sqrt n)$</h4><h4 id="2-6-4-2-Pollard-Rho-Theta-n-frac-1-4"><a href="#2-6-4-2-Pollard-Rho-Theta-n-frac-1-4" class="headerlink" title="2.6.4.2 Pollard-Rho $\Theta(n ^{\frac{1}{4}})$"></a>2.6.4.2 Pollard-Rho $\Theta(n ^{\frac{1}{4}})$</h4><h3 id="2-6-5-筛法求欧拉函数-Theta-n"><a href="#2-6-5-筛法求欧拉函数-Theta-n" class="headerlink" title="2.6.5 筛法求欧拉函数 $\Theta(n)$"></a>2.6.5 筛法求欧拉函数 $\Theta(n)$</h3><p>我们注意到，欧拉筛每次都会以它最小的素因子筛到这个数。设 $n=pq$，其中 $p$ 为它最小的素因子，分类讨论：</p>
+<ol>
+<li>$q \bmod{p}=0$，这也就是说，$q$ 中有 $n$ 全部的素因子，于是 </li>
+</ol>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\varphi(n)&=n \times\prod_{i=1}^{s} \dfrac{p_i-1}{p_i}\\
+&=p\times q \times\prod_{i=1}^{s} \dfrac{p_i-1}{p_i}\\
+&= p \times \varphi(q)
+\end{aligned}</script><ol>
+<li>$q\bmod{p} \neq 0$，这也就是说 $p,q$ 互质，于是根据积性，有</li>
+</ol>
+<script type="math/tex; mode=display">\varphi(n)=\varphi(p)\times \varphi(q)</script><p><strong>Sample Code</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> MAXN = <span class="number">1000000</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> pri[MAXN],phi[MAXN],cnt;</span><br><span class="line"><span class="type">bool</span> is_prime[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">get_euler</span><span class="params">(<span class="type">const</span> <span class="type">int</span> N)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;i++) is_prime[i]=<span class="number">1</span>;</span><br><span class="line">	is_prime[<span class="number">1</span>]=<span class="number">0</span>;</span><br><span class="line">	phi[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">	cnt=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(is_prime[i])&#123;</span><br><span class="line">			pri[++cnt]=i;</span><br><span class="line">			phi[i]=i<span class="number">-1</span>; <span class="comment">//i为素数，phi[i]=i-1</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=cnt;j++)&#123;</span><br><span class="line">			<span class="keyword">if</span>(i*pri[j]&gt;N) <span class="keyword">break</span>;</span><br><span class="line">			is_prime[i*pri[j]]=<span class="number">0</span>;</span><br><span class="line">			<span class="keyword">if</span>(i%pri[j]) <span class="comment">// 注意分辨 phi 和 pri</span></span><br><span class="line">				phi[i*pri[j]]=phi[i]*phi[pri[j]]; <span class="comment">// 情况1</span></span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				phi[i*pri[j]]=phi[i]*pri[j]; <span class="comment">// 情况2</span></span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n,T;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">get_euler</span>(MAXN<span class="number">-5</span>);</span><br><span class="line">	cin&gt;&gt;T;</span><br><span class="line">	<span class="keyword">while</span>(T--)&#123;</span><br><span class="line">		cin&gt;&gt;n;</span><br><span class="line">		cout&lt;&lt;phi[n]&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-最大公约数"><a href="#3-最大公约数" class="headerlink" title="3 最大公约数"></a>3 最大公约数</h2><h3 id="3-1-最大公约数-gcd-a-b"><a href="#3-1-最大公约数-gcd-a-b" class="headerlink" title="3.1 最大公约数 $\gcd(a,b)$"></a>3.1 最大公约数 $\gcd(a,b)$</h3><p>定义正整数 $a,b$ 的最大公约数为他们共同的约数中最大的一个（<em>Greatest Common Divisor</em>），简写为 $\gcd$。</p>
+<p>对于如何快速地求出 $\gcd(a,b)$，有<strong>欧几里得算法</strong>。</p>
+<ul>
+<li>欧几里得算法：对于正整数 $a,b$，有 $\gcd(a,b)=\gcd(b,a \bmod{b})$。</li>
+</ul>
+<p>下面给出这个算法的证明过程（个人觉得 OI-Wiki 上的有些不严谨）：</p>
+<h4 id="Proof"><a href="#Proof" class="headerlink" title="Proof"></a>Proof</h4><ul>
+<li><p><strong>等式 $1$</strong>：如果 $a \mid b \land b \mid a$，有 $a = \pm b$。（<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/501865/number-theory-in-oi#:~:text=1.1"><strong>1.1 整除</strong></a>）</p>
+</li>
+<li><p><strong>等式 $2$</strong>：$a\mid b\land a\mid c\iff\forall x,y\in\mathbf{Z}, a\mid(xb+yc)$。（<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/501865/number-theory-in-oi#:~:text=1.1"><strong>1.1 整除</strong></a>）</p>
+</li>
+<li><p><strong>等式 $3$</strong>：$a \in \mathbf{Z}, n \in \mathbf{N}^{+},a \bmod n = a-n\left\lfloor\dfrac{a}{n}\right\rfloor$。（<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/501865/number-theory-in-oi#:~:text=1.2"><strong>1.2 带余除法</strong></a>）</p>
+</li>
+<li><p><strong>推论 $1$</strong>：$d \mid a \land d \mid b \implies d \mid \gcd(a,b)$。</p>
+<ul>
+<li>很显然 $a,b$ 的公约数里有 $a,b$ 共同的因子，然后 $\gcd(a,b)$ 显然也有他们共同的因子，根据 <strong>唯一分解定理</strong>，$\gcd(a,b)$ 要么比 $d$ 含有的因子数多，要么他们共同含有的因子 $\gcd(a,b)$ 的幂次一定大于 $d$（不然不是<strong>最大</strong>公约数），于是 $d \mid \gcd(a,b)$。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>接下来我们来推出 $\gcd(a,b) \mid \gcd(b,a \bmod{b})$：</p>
+<p>设 $d=\gcd(a,b),r=a \bmod{b}$。</p>
+<p>由 <strong>等式 $3$</strong> 得 $r=a-b\left\lfloor\dfrac{a}{b}\right\rfloor$。</p>
+<p>于是根据 <strong>等式 $2$</strong> ，由 $d \mid a \land d \mid b$ 且 $r=a-b\left\lfloor\dfrac{a}{b}\right\rfloor$，推出 $d \mid r$，即 $d \mid a \bmod{b}$。</p>
+<p>由 <strong>推论 $1$</strong> ，因为 $d \mid b \land d \mid a \bmod{b}$，于是 $d \mid \gcd(a,a \bmod{b})$。</p>
+<p>即 $\gcd(a,b) \mid \gcd(b,a \bmod{b})$。</p>
+<hr>
+<p>接下来我们来推出 $\gcd(b,a \bmod{b}) \mid \gcd(a,b)$：</p>
+<p>设 $c=\gcd(b,a \bmod{b})$，则有 $c\mid b \land c \mid(a \bmod{b})$。</p>
+<p>由带余除法，$a=bq+r$，其中 $q=\left\lfloor\dfrac{a}{b}\right\rfloor,r=a \bmod b$。</p>
+<p>于是根据 <strong>等式 $2$</strong> ，由 $c \mid b \land c \mid (a\bmod{b})$ 且 $a=b \left\lfloor\dfrac{a}{b}\right\rfloor+a \bmod{b}$，得出 $c \mid a$。</p>
+<p>于是有 $c \mid a \land c \mid b$ 又因为 <strong>推论 $1$</strong> ，得出 $c \mid \gcd(a,b)$。</p>
+<p>即 $\gcd(b,a \bmod{b}) \mid \gcd(a,b)$。</p>
+<hr>
+<p>于是根据 <strong>等式 $1$</strong> ，$\gcd(b,a \bmod{b}) \mid \gcd(a,b) \land \gcd(a,b) \mid \gcd(b,a \bmod{b}) \implies \gcd(a,b)=\gcd(b,a\bmod{b}) \square$。</p>
+<p>至此，<strong>欧几里得定理（或辗转相除法、$\gcd$ 递归定理）</strong> 证明完毕。</p>
+<p>因为每次 $a \bmod{b}$ 的值至多变为 $a$ 的一半，所以该算法的时间复杂度为 $\Theta(\log n)$。</p>
+<p>常见的几种写法：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下默认 typedef long long ll </span></span><br><span class="line"><span class="function">ll <span class="title">gcd</span><span class="params">(ll a,ll b)</span></span>&#123; <span class="comment">// 非递归版</span></span><br><span class="line">    <span class="type">int</span> tmp;</span><br><span class="line">    <span class="keyword">while</span>(b!=<span class="number">0</span>)&#123;</span><br><span class="line">        tmp=b;</span><br><span class="line">        b=a%b;</span><br><span class="line">        a=tmp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">gcd</span><span class="params">(ll a,ll b)</span></span>&#123; <span class="comment">// 递归版</span></span><br><span class="line">	<span class="keyword">if</span>(b==<span class="number">0</span>) <span class="keyword">return</span> a;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">gcd</span>(b,a%b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">gcd</span><span class="params">(ll a,ll b)</span></span>&#123; <span class="comment">// 递归版简化</span></span><br><span class="line">	<span class="keyword">return</span> b==<span class="number">0</span>?a:<span class="built_in">gcd</span>(b,a%b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">gcd</span><span class="params">(ll a,ll b)</span></span>&#123; <span class="comment">// 位运算版</span></span><br><span class="line">    <span class="keyword">while</span>(b)&#123;</span><br><span class="line">        a%=b;</span><br><span class="line">        b^=a;</span><br><span class="line">        a^=b;</span><br><span class="line">        b^=a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">gcd</span><span class="params">(ll a,ll b)</span></span>&#123; <span class="comment">// 位运算简化</span></span><br><span class="line">	<span class="keyword">while</span>(b^=a^=b^=a%=b);</span><br><span class="line">	<span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-2-最小公倍数-operatorname-lcm-a-b"><a href="#3-2-最小公倍数-operatorname-lcm-a-b" class="headerlink" title="3.2 最小公倍数 $\operatorname{lcm}(a,b)$"></a>3.2 最小公倍数 $\operatorname{lcm}(a,b)$</h2><p>定义正整数 $a,b$ 的最小公倍数为他们共同的倍数中最小的一个（<em>Least Common Multiple</em>），简写为 $\operatorname{lcm}$。</p>
+<p>我们接下来来推一推 $\operatorname{lcm}$ 要如何快速地求。</p>
+<p>由 <strong>唯一分解定理</strong>，可得</p>
+<script type="math/tex; mode=display">a=p_1^{ka_1}p_2^{ka_2}\cdots p_s^{ka_s},b=p_1^{kb_1}p_2^{kb_2}\cdots p_s^{kb_s}</script><p>因为 $\gcd$ 为二者的最大公因数，所以有</p>
+<script type="math/tex; mode=display">\gcd(a,b)=p_1^{\min(ka_1,kb_1)}p_2^{\min(ka_2,kb_2)}\cdots p_s^{\min(ka_s,kb_s)}</script><p>同理，$\operatorname{lcm}$ 即为</p>
+<script type="math/tex; mode=display">\operatorname{lcm}(a,b)=p_1^{\max(ka_1,kb_1)}p_2^{\max(ka_2,kb_2)}\cdots p_s^{\max(ka_s,kb_s)}</script><p>因为 $ka_1+kb_1=\min(ka_1+kb_1)+\max(ka_2+kb_2)$，所以 $\gcd(a,b) \times \operatorname{lcm}(a,b)=a \times b$。</p>
+<p>也就是说，只要求出了两个数的 $\gcd$，两个数的 $\operatorname{lcm}$ 就能 $\Theta(1)$ 求出来，容易看出，求解 $\operatorname{lcm}$ 的时间复杂度也为 $\Theta(\log n)$。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ll <span class="title">lcm</span><span class="params">(ll a,ll b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a/<span class="built_in">gcd</span>(a,b)*b; <span class="comment">// 防止 a*b 爆 ll，所以先 /gcd 再 *b</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-3-扩展欧几里得算法-text-exgcd"><a href="#3-3-扩展欧几里得算法-text-exgcd" class="headerlink" title="3.3 扩展欧几里得算法 $\text{exgcd}$"></a>3.3 扩展欧几里得算法 $\text{exgcd}$</h2><p>扩展欧几里得算法（<em>Extended Euclidean algorithm</em>），简写为 $\text{exgcd}$，是用来求解形如 $ax+by=\gcd(a,b)$ 的一组可行解。</p>
+<p>接下来我们来分析一下这个算法：</p>
+<p>首先，当 $b=0$ 时，显然有 $\gcd(a,0)=a$，此时 $\begin{cases}x=1\\y=0\end{cases}$ 是方程的一组可行解。</p>
+<p>设 $ax_1+by_1=\gcd(a,b)$，$bx_2+(a \bmod b)y_2=\gcd(b,a \bmod{b})$。</p>
+<p>于是根据 <strong>欧几里得定理</strong>，显然有 $ax_1+by_1=bx_2+(a \bmod{b})y_2$</p>
+<p>于是</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+ax_1+by_1&=bx_2+(a\bmod b)y_2\\
+ax_1+by_1&=bx_2+\left( a-b \left\lfloor \dfrac{a}{b}\right\rfloor\right) y_2\\
+ax_1+by_1&=bx_2+ay_2-b\left\lfloor \dfrac{a}{b}\right\rfloor y_2\\
+ax_1+by_1&=ay_2+b\left(x_2-\left\lfloor \dfrac{a}{b}\right\rfloor y_2\right)\\
+x_1=y_2&,y_1=x_2-\left\lfloor \dfrac{a}{b}\right\rfloor y_2
+\end{aligned}</script><p>用 $\gcd$ 递归求解即可。当 $b=0$ 时，带入上文的特解返回。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ll <span class="title">exgcd</span><span class="params">(ll a,ll b,ll &amp;x,ll &amp;y)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(b==<span class="number">0</span>)&#123;</span><br><span class="line">		x=<span class="number">1</span>; y=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">return</span> a;</span><br><span class="line">	&#125;</span><br><span class="line">	ll d=<span class="built_in">exgcd</span>(b,a%b,x,y);</span><br><span class="line">	ll t=x;</span><br><span class="line">	x=y;</span><br><span class="line">	y=t-(a/b)*y;</span><br><span class="line">	<span class="keyword">return</span> d;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-3-1-用-text-exgcd-求解的一个问题"><a href="#3-3-1-用-text-exgcd-求解的一个问题" class="headerlink" title="3.3.1 用 $\text{exgcd}$ 求解的一个问题"></a>3.3.1 用 $\text{exgcd}$ 求解的一个问题</h3><p>题意：给定 $a,b$，求出 $ax \equiv 1 \pmod{b}$ 中 $x$ 的最小正整数解，保证有解。</p>
+<p>问题转化：$ax \equiv 1 \pmod{b} \implies ax+by=1$，其中 $y$ 是我们引进的一个<strong>负整数</strong>。</p>
+<p>明显地，$\text{exgcd}$ 可以用来求解形如 $ax+by=\gcd(a,b)$ 的解，现在的问题是如何把 $1$ 和 $\gcd(a,b)$ 联系起来。</p>
+<p><strong>引理</strong>：$ax+by=m$ 有整数解的必要条件是 $\gcd(a,b)\mid m$。</p>
+<p><strong>Proof</strong>：因为 $\gcd(a,b) \mid a \land \gcd(a,b) \mid b$，所以 $\gcd(a,b) \mid (ax+by)$，即 $\gcd(a,b) \mid m$。</p>
+<p>于是再联系到题目上，就有 $\gcd(a,b)\mid 1$，因为 $\gcd(a,b)$ 显然是个正整数，所以 $\gcd(a,b)$ 只能等于 $1$ 了。</p>
+<p><strong>这也就是说，$a,b$ 互质</strong>，于是 $\gcd(a,b)=1$，正好符合 $\text{exgcd}$ 的原始形式，所以 $\text{exgcd}$ 就可以在 $\Theta(\log n)$ 的时间来求解。</p>
+<p><strong>最小正整数解</strong></p>
+<p>因为 $ax+by=1$，所以 $ax+by+kab-kab=1$，所以 $a(x\pm kb)+b(y \mp ka)=1$。</p>
+<p>这也就是说，如果 $x&gt;0$，那么就把 $x$ 一直减 $b$，直到不能减为止，反之亦然。</p>
+<p>这在 C++ 的运算中，用 <code>x = (x % b + b) % b</code> 即可解决，后面的 <code>+ b) % b</code> 是为了让 $x$ 从负数变为正数。</p>
+<p><strong>Sample Code</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">using</span> ll = <span class="type">long</span> <span class="type">long</span>;</span><br><span class="line"></span><br><span class="line">ll a,b,x,y;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">exgcd</span><span class="params">(ll a,ll b,ll &amp;x,ll &amp;y)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(b==<span class="number">0</span>)&#123;</span><br><span class="line">		x=<span class="number">1</span>; y=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">exgcd</span>(b,a%b,x,y);</span><br><span class="line">	ll tmp=x;</span><br><span class="line">	x=y;</span><br><span class="line">	y=tmp-(a/b)*y;</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	cin&gt;&gt;a&gt;&gt;b;</span><br><span class="line">	<span class="built_in">exgcd</span>(a,b,x,y);</span><br><span class="line">	x=(x%b+b)%b;</span><br><span class="line">	cout&lt;&lt;x&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="3-3-2-有理数取余：用-text-exgcd-求解的另一个问题"><a href="#3-3-2-有理数取余：用-text-exgcd-求解的另一个问题" class="headerlink" title="3.3.2 有理数取余：用 $\text{exgcd}$ 求解的另一个问题"></a>3.3.2 有理数取余：用 $\text{exgcd}$ 求解的另一个问题</h3><ul>
+<li>给定 $c=\dfrac{a}{b}$，求 $c \bmod p$ 的值。</li>
+</ul>
+<p>这个值被定义为 $bx \equiv a \pmod p$ 的解。</p>
+<p>我们来分析一下。</p>
+<p>因为同余有性质： 如果 $b \equiv a \pmod p$，那么两边乘上一个数之后，还是不变： $b \times d \equiv a \times d \pmod p$，带进原式，就变成了 $bx \equiv a \pmod p$。</p>
+<p>慢着，我们先看上一个问题，他求解的是 $bx_1 \equiv 1 \pmod{p}$，然后两边同乘 $a$，变成了 $b (ax_1) \equiv a \pmod p$。</p>
+<p>于是有 $x=ax_1$，问题解决。</p>
+<p>等等，那无解情况呢？我们分情况讨论一下：</p>
+<ol>
+<li><p>$b \bmod p = 0$，即 $b$ 为 $p$ 的倍数：</p>
+<ul>
+<li>$a \bmod p = 0$，即 $a$ 也为 $p$ 的倍数，于是原同余式有无数解。</li>
+<li>$a \bmod p \ne 0$，即 $a$ 不为 $p$ 的倍数，于是原同余式无解（因为等式左边 $\mod p$ 永远为 $0$）。</li>
+</ul>
+</li>
+<li><p>$b \bmod p \ne 0$，即 $b$ 不为 $p$ 的倍数：</p>
+<ul>
+<li>即 $b,p$ 互质，$\gcd(b,p)=1$，于是根据 <strong>3.3.1</strong> 中的一个结论，原方程必定有解。</li>
+</ul>
+</li>
+</ol>
+<p>总结：如果 $b \bmod p=0$，则原方程无解。</p>
+<p><strong>Sample Code</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ll long long</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> p = <span class="number">19260817</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> ll <span class="title">read</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">char</span> ch=<span class="built_in">getchar</span>(); <span class="function">ll <span class="title">x</span><span class="params">(<span class="number">0</span>)</span>,<span class="title">f</span><span class="params">(<span class="number">0</span>)</span></span>;</span><br><span class="line">	<span class="keyword">for</span>(; !<span class="built_in">isdigit</span>(ch); ch=<span class="built_in">getchar</span>()) f|=(ch==<span class="string">&#x27;-&#x27;</span>);</span><br><span class="line">	<span class="keyword">for</span>(;  <span class="built_in">isdigit</span>(ch); ch=<span class="built_in">getchar</span>()) x=((x&lt;&lt;<span class="number">1</span>)+(x&lt;&lt;<span class="number">3</span>)+(ch^<span class="number">48</span>))%p;</span><br><span class="line">	<span class="keyword">return</span> f?-x:x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">exgcd</span><span class="params">(ll a,ll b,ll &amp;x,ll &amp;y)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(b==<span class="number">0</span>)&#123;</span><br><span class="line">		x=<span class="number">1</span>; y=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">return</span> a;</span><br><span class="line">	&#125;</span><br><span class="line">	ll d=<span class="built_in">exgcd</span>(b,a%b,x,y);</span><br><span class="line">	ll t=x;</span><br><span class="line">	x=y;</span><br><span class="line">	y=t-(a/b)*y;</span><br><span class="line">	<span class="keyword">return</span> d;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ll a,b,x,y;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	a=<span class="built_in">read</span>(); b=<span class="built_in">read</span>();</span><br><span class="line">	<span class="keyword">if</span>(b==<span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">puts</span>(<span class="string">&quot;Angry!&quot;</span>)&amp;<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">exgcd</span>(b,p,x,y);</span><br><span class="line">	ll ans=(a*x%p+p)%p;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%lld\n&quot;</span>,ans);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-3-3-text-exgcd-例题"><a href="#3-3-3-text-exgcd-例题" class="headerlink" title="3.3.3 $\text{exgcd}$ 例题"></a>3.3.3 $\text{exgcd}$ 例题</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1082">https://www.luogu.com.cn/problem/P1082</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5656">https://www.luogu.com.cn/problem/P5656</a></li>
+</ul>
+<h2 id="4-数论分块"><a href="#4-数论分块" class="headerlink" title="4 数论分块"></a>4 数论分块</h2><h3 id="4-1-算法"><a href="#4-1-算法" class="headerlink" title="4.1 算法"></a>4.1 算法</h3><blockquote>
+<p>给定 $n\in \mathbf N^{+}$, 求 $\sum^n_{i=1} \left\lfloor\dfrac{n}{i}\right\rfloor$ 的值。</p>
+</blockquote>
+<p>朴素算法是 $\Theta(n)$ 的，考虑优化。</p>
+<p>有结论：对于 $\left\lfloor\dfrac n i\right\rfloor =\left\lfloor\dfrac n j\right\rfloor$ 且 $1 \le i \le j \le n$，有 $j$ 的最大值为 $\left\lfloor\dfrac n i\right\rfloor$。</p>
+<p>证明：设 $k = \left\lfloor\dfrac n i\right\rfloor$，显然有 $k \le \dfrac n i$。</p>
+<script type="math/tex; mode=display">\therefore \left\lfloor\dfrac n k\right\rfloor \ge \left\lfloor\frac n {\frac n i}\right\rfloor = \left\lfloor i \right\rfloor=i</script><script type="math/tex; mode=display">\therefore j=\max_{\left\lfloor\frac n i\right\rfloor =\left\lfloor\frac n j\right\rfloor} i=\left\lfloor\dfrac n k\right\rfloor=\left\lfloor\frac n {\frac n i}\right\rfloor \qquad \square</script><p>容易证得，符合要求的区间约有 $\sqrt n$ 种。</p>
+<p>时间复杂度 $\Theta(\sqrt n)$ 。</p>
+<p><strong>Sample Code</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ll <span class="title">H</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">	ll res = <span class="number">0</span>;</span><br><span class="line">	<span class="type">int</span> l = <span class="number">1</span>, r;</span><br><span class="line">	<span class="keyword">while</span>(l &lt;= n)&#123;</span><br><span class="line">		r = n / (n / l);</span><br><span class="line">		res += <span class="number">1ll</span> * (r - l + <span class="number">1</span>) * (n / l);</span><br><span class="line">		l = r + <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-2-例题"><a href="#4-2-例题" class="headerlink" title="4.2 例题"></a>4.2 例题</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/UVA11526">https://www.luogu.com.cn/problem/UVA11526</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2261">https://www.luogu.com.cn/problem/P2261</a></li>
+</ul>
+<h3 id="4-3-用数论分块解决的一个问题"><a href="#4-3-用数论分块解决的一个问题" class="headerlink" title="4.3 用数论分块解决的一个问题"></a>4.3 用数论分块解决的一个问题</h3><p>以 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2261">P2261 [CQOI2007]余数求和</a> 为例。</p>
+<blockquote>
+<p>给出 $n,k$，求 $\sum^n_{i=1} k \bmod i$。</p>
+</blockquote>
+<p>题目转化：由带余除法一章，我们知道 $k \bmod i = k - i \times \left \lfloor \dfrac k i \right \rfloor$。</p>
+<p>于是问题就变成了 $\sum^n_{i=1} k - i \times \left \lfloor \dfrac k i \right \rfloor$。</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+G(n,k)&=\sum^n_{i=1} k - i \times \left \lfloor \dfrac k i \right \rfloor\\
+&=n\times k-\sum^n_{i=1}  i \times \left \lfloor \dfrac k i \right \rfloor
+\end{aligned}</script><p>其中 $\sum^n_{i=1}  i \times \left \lfloor \dfrac k i \right \rfloor$ 部分可以数论分块。因为 $\left \lfloor \dfrac k i \right \rfloor$ 相等，由乘法分配律可得 $\sum^r_{l=1}  l \times \left \lfloor \dfrac k l \right \rfloor=\left \lfloor \dfrac k l \right \rfloor \times \sum^r_{l=1}  l$。后面的部分可以数论分块顺带解决掉。于是就做完了。</p>
+<p>注意这题和上面那题不同。这题 $n,k$ 是分开的，所以当 $\left \lfloor \dfrac k l\right \rfloor=0$ 时要特判，不然会 RE。</p>
+<p>以及 $r$ 要和 $n$ 取 $\min$。</p>
+<p>复杂度：$\Theta(\sqrt n)$。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ll <span class="title">H</span><span class="params">(ll n, ll k)</span></span>&#123;</span><br><span class="line">	ll ans = k * n;</span><br><span class="line">	<span class="type">int</span> l = <span class="number">1</span>, r;</span><br><span class="line">	<span class="keyword">while</span>(l &lt;= n)&#123;</span><br><span class="line">		<span class="keyword">if</span>(k / l != <span class="number">0</span>) r = k / (k / l);</span><br><span class="line">		<span class="keyword">else</span> r = n;</span><br><span class="line">		<span class="built_in">chkmin</span>(r, n);</span><br><span class="line">		ans -= <span class="number">1ll</span> * (l + r) * (r - l + <span class="number">1</span>) / <span class="number">2</span> * (k / l);</span><br><span class="line">		l = r + <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="- Reference"></a>- Reference</h1><ul>
+<li><p><a target="_blank" rel="noopener" href="https://oi-wiki.org/math/">https://oi-wiki.org/math/</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/87611586">https://zhuanlan.zhihu.com/p/87611586</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zwfymqz/p/8150969.html">https://www.cnblogs.com/zwfymqz/p/8150969.html</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/346479426">https://zhuanlan.zhihu.com/p/346479426</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/cicos/solution-p1082">https://www.luogu.com.cn/blog/cicos/solution-p1082</a></p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Math/" rel="tag"># Math</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/03/02/link-cut-tree-data-structure/" rel="prev" title="【学习笔记】动态树Link Cut Tree">
+      <i class="fa fa-chevron-left"></i> 【学习笔记】动态树Link Cut Tree
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/03/02/csp-j-2020-2021-eternal-core/" rel="next" title="CSP-J 2020 及 2021 游记 / Eternal Core.">
+      CSP-J 2020 及 2021 游记 / Eternal Core. <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E9%95%BF%E6%9C%9F%E6%9B%B4%E6%96%B0%E3%80%91OI-%E4%B8%AD%E7%9A%84%E6%95%B0%E8%AE%BA"><span class="nav-number">1.</span> <span class="nav-text">【学习笔记 &#x2F; 长期更新】OI 中的数论</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">2.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Preface"><span class="nav-number">3.</span> <span class="nav-text">- Preface</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-1-%E5%89%8D%E8%A8%80"><span class="nav-number">3.1.</span> <span class="nav-text">0.1 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-2-%E5%B8%B8%E7%94%A8%E7%AC%A6%E5%8F%B7"><span class="nav-number">3.2.</span> <span class="nav-text">0.2 常用符号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-3-%E5%BF%AB%E9%80%9F%E5%B9%82-Theta-log-n"><span class="nav-number">3.3.</span> <span class="nav-text">0.3 快速幂 $\Theta(\log n)$</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E8%AE%BA"><span class="nav-number">4.</span> <span class="nav-text">- 数论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%95%B0%E8%AE%BA%E5%9F%BA%E7%A1%80"><span class="nav-number">4.1.</span> <span class="nav-text">1 数论基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E6%95%B4%E9%99%A4"><span class="nav-number">4.1.1.</span> <span class="nav-text">1.1 整除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E5%B8%A6%E4%BD%99%E9%99%A4%E6%B3%95"><span class="nav-number">4.1.2.</span> <span class="nav-text">1.2 带余除法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E5%90%8C%E4%BD%99"><span class="nav-number">4.1.3.</span> <span class="nav-text">1.3 同余</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-%E6%95%B0%E8%AE%BA%E5%87%BD%E6%95%B0"><span class="nav-number">4.1.4.</span> <span class="nav-text">1.4 数论函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-1-%E7%A7%AF%E6%80%A7%E5%87%BD%E6%95%B0"><span class="nav-number">4.1.5.</span> <span class="nav-text">1.4.1 积性函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%B4%A0%E6%95%B0"><span class="nav-number">4.2.</span> <span class="nav-text">2 素数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E5%94%AF%E4%B8%80%E5%88%86%E8%A7%A3%E5%AE%9A%E7%90%86"><span class="nav-number">4.2.1.</span> <span class="nav-text">2.1 唯一分解定理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%88%A4%E5%AE%9A%E7%B4%A0%E6%95%B0-Theta-sqrt-n"><span class="nav-number">4.2.2.</span> <span class="nav-text">2.2 判定素数 $\Theta(\sqrt{n})$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Miller-Rabin-%E5%88%A4%E5%AE%9A%E7%B4%A0%E6%95%B0-Theta-k-log-3n"><span class="nav-number">4.2.3.</span> <span class="nav-text">2.3 Miller-Rabin 判定素数 $\Theta(k \log^3n)$</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-%E8%B4%B9%E9%A9%AC%E5%B0%8F%E5%AE%9A%E7%90%86%EF%BC%88Fermat%E2%80%99s-Little-Theorem%EF%BC%89"><span class="nav-number">4.2.3.1.</span> <span class="nav-text">2.3.1 费马小定理（Fermat’s Little Theorem）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-%E4%BA%8C%E6%AC%A1%E6%8E%A2%E6%B5%8B%E5%AE%9A%E7%90%86"><span class="nav-number">4.2.3.2.</span> <span class="nav-text">2.3.2 二次探测定理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-3-Miller-Rabin"><span class="nav-number">4.2.3.3.</span> <span class="nav-text">2.3.3 Miller-Rabin</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-%E7%B4%A0%E6%95%B0%E7%AD%9B"><span class="nav-number">4.3.</span> <span class="nav-text">2.4 素数筛</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-1-%E5%9F%83%E6%B0%8F%E7%AD%9B-Theta-n-log-log-n"><span class="nav-number">4.3.1.</span> <span class="nav-text">2.4.1 埃氏筛 $\Theta(n \log \log n)$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-2-%E6%AC%A7%E6%8B%89%E7%AD%9B-%E7%BA%BF%E6%80%A7%E7%AD%9B-Theta-n"><span class="nav-number">4.3.2.</span> <span class="nav-text">2.4.2 欧拉筛 &#x2F; 线性筛 $\Theta(n)$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-3-%E7%AD%9B%E6%B3%95%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BC%98%E5%8C%96"><span class="nav-number">4.3.3.</span> <span class="nav-text">2.4.3 筛法的一些优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-%E5%88%86%E8%A7%A3%E8%B4%A8%E5%9B%A0%E6%95%B0"><span class="nav-number">4.4.</span> <span class="nav-text">2.5 分解质因数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-1-%E6%9C%B4%E7%B4%A0%E7%AE%97%E6%B3%95-Theta-sqrt-n"><span class="nav-number">4.4.1.</span> <span class="nav-text">2.5.1 朴素算法 $\Theta(\sqrt{n})$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-2-%E7%B4%A0%E6%95%B0%E7%AD%9B%E4%BC%98%E5%8C%96-Theta-sqrt-frac-n-ln-n"><span class="nav-number">4.4.2.</span> <span class="nav-text">2.5.2 素数筛优化 $\Theta(\sqrt{\frac{n}{\ln n}})$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-3-Pollard-Rho-Theta-n-frac-1-4"><span class="nav-number">4.4.3.</span> <span class="nav-text">2.5.3 Pollard-Rho $\Theta(n^{\frac{1}{4}})$</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0-varphi-n"><span class="nav-number">4.5.</span> <span class="nav-text">2.6 欧拉函数 $\varphi(n)$</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-1-%E6%80%A7%E8%B4%A8"><span class="nav-number">4.5.1.</span> <span class="nav-text">2.6.1 性质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-2-%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0%EF%BC%88Euler%E2%80%99s-totient-function%EF%BC%89"><span class="nav-number">4.5.2.</span> <span class="nav-text">2.6.2 欧拉函数（Euler’s totient function）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-3-%E5%BC%95%E7%90%86"><span class="nav-number">4.5.3.</span> <span class="nav-text">2.6.3 引理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-4-%E6%B1%82%E4%B8%80%E4%B8%AA%E6%95%B0%E7%9A%84%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0"><span class="nav-number">4.5.4.</span> <span class="nav-text">2.6.4 求一个数的欧拉函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-6-4-1-%E6%9C%B4%E7%B4%A0%E6%B1%82%E6%B3%95-Theta-sqrt-n"><span class="nav-number">4.5.4.1.</span> <span class="nav-text">2.6.4.1 朴素求法 $\Theta(\sqrt n)$</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-6-4-2-Pollard-Rho-Theta-n-frac-1-4"><span class="nav-number">4.5.4.2.</span> <span class="nav-text">2.6.4.2 Pollard-Rho $\Theta(n ^{\frac{1}{4}})$</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-5-%E7%AD%9B%E6%B3%95%E6%B1%82%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0-Theta-n"><span class="nav-number">4.5.5.</span> <span class="nav-text">2.6.5 筛法求欧拉函数 $\Theta(n)$</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0"><span class="nav-number">4.6.</span> <span class="nav-text">3 最大公约数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0-gcd-a-b"><span class="nav-number">4.6.1.</span> <span class="nav-text">3.1 最大公约数 $\gcd(a,b)$</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Proof"><span class="nav-number">4.6.1.1.</span> <span class="nav-text">Proof</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E6%9C%80%E5%B0%8F%E5%85%AC%E5%80%8D%E6%95%B0-operatorname-lcm-a-b"><span class="nav-number">4.7.</span> <span class="nav-text">3.2 最小公倍数 $\operatorname{lcm}(a,b)$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E6%89%A9%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E7%AE%97%E6%B3%95-text-exgcd"><span class="nav-number">4.8.</span> <span class="nav-text">3.3 扩展欧几里得算法 $\text{exgcd}$</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-1-%E7%94%A8-text-exgcd-%E6%B1%82%E8%A7%A3%E7%9A%84%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98"><span class="nav-number">4.8.1.</span> <span class="nav-text">3.3.1 用 $\text{exgcd}$ 求解的一个问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-2-%E6%9C%89%E7%90%86%E6%95%B0%E5%8F%96%E4%BD%99%EF%BC%9A%E7%94%A8-text-exgcd-%E6%B1%82%E8%A7%A3%E7%9A%84%E5%8F%A6%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98"><span class="nav-number">4.8.2.</span> <span class="nav-text">3.3.2 有理数取余：用 $\text{exgcd}$ 求解的另一个问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-3-text-exgcd-%E4%BE%8B%E9%A2%98"><span class="nav-number">4.8.3.</span> <span class="nav-text">3.3.3 $\text{exgcd}$ 例题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%95%B0%E8%AE%BA%E5%88%86%E5%9D%97"><span class="nav-number">4.9.</span> <span class="nav-text">4 数论分块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E7%AE%97%E6%B3%95"><span class="nav-number">4.9.1.</span> <span class="nav-text">4.1 算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E4%BE%8B%E9%A2%98"><span class="nav-number">4.9.2.</span> <span class="nav-text">4.2 例题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E7%94%A8%E6%95%B0%E8%AE%BA%E5%88%86%E5%9D%97%E8%A7%A3%E5%86%B3%E7%9A%84%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98"><span class="nav-number">4.9.3.</span> <span class="nav-text">4.3 用数论分块解决的一个问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reference"><span class="nav-number">5.</span> <span class="nav-text">- Reference</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="TheSky233"
+      src="https://cdn.luogu.com.cn/upload/usericon/501865.png">
+  <p class="site-author-name" itemprop="name">TheSky233</p>
+  <div class="site-description" itemprop="description">An OIer / PhOer</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/TheSky233" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;TheSky233" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1602458048@qq.com" title="E-Mail → mailto:1602458048@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.luogu.com.cn/user/501865" title="https:&#x2F;&#x2F;www.luogu.com.cn&#x2F;user&#x2F;501865" rel="noopener" target="_blank">TheSky233's Luogu</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheSky233</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">65k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">59 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
+<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script>
+<script src="/js/algolia-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

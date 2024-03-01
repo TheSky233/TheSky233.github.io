@@ -22,19 +22,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
+  <meta name="description" content="基于各类排序算法的时间性能比较。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://example.com/2024/02/29/hello-world/index.html">
+<meta property="og:title" content="【排序】各类排序算法的时间性能比较">
+<meta property="og:url" content="http://example.com/2024/03/02/sort-algorithm-time-complexity/index.html">
 <meta property="og:site_name" content="TheSky233&#39;s Blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
+<meta property="og:description" content="基于各类排序算法的时间性能比较。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-02-28T16:01:19.004Z">
-<meta property="article:modified_time" content="2024-03-01T19:22:11.035Z">
+<meta property="article:published_time" content="2024-03-01T19:39:29.000Z">
+<meta property="article:modified_time" content="2024-03-01T19:50:43.259Z">
 <meta property="article:author" content="TheSky233">
+<meta property="article:tag" content="Sort">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2024/02/29/hello-world/">
+<link rel="canonical" href="http://example.com/2024/03/02/sort-algorithm-time-complexity/">
 
 
 <script id="page-configurations">
@@ -47,7 +48,7 @@
   };
 </script>
 
-  <title>Hello World | TheSky233's Blog</title>
+  <title>【排序】各类排序算法的时间性能比较 | TheSky233's Blog</title>
   
 
 
@@ -188,7 +189,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/29/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/02/sort-algorithm-time-complexity/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://cdn.luogu.com.cn/upload/usericon/501865.png">
@@ -201,7 +202,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hello World
+          【排序】各类排序算法的时间性能比较
         </h1>
 
         <div class="post-meta">
@@ -211,16 +212,19 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2024-02-29 00:01:19" itemprop="dateCreated datePublished" datetime="2024-02-29T00:01:19+08:00">2024-02-29</time>
+              <time title="创建时间：2024-03-02 03:39:29 / 修改时间：03:50:43" itemprop="dateCreated datePublished" datetime="2024-03-02T03:39:29+08:00">2024-03-02</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-02 03:22:11" itemprop="dateModified" datetime="2024-03-02T03:22:11+08:00">2024-03-02</time>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
               </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
 
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -235,7 +239,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>367</span>
+              <span>1.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -254,16 +258,193 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+        <p>基于各类排序算法的时间性能比较。</p>
 <span id="more"></span>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<ul>
+<li>用 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/paste/nzx555us">https://www.luogu.com.cn/paste/nzx555us</a> 中代码<ul>
+<li>在<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/U240011">此题</a>运行</li>
+<li>时限 $\tt 1s$，空间限制 $\tt 256MB$。</li>
+</ul>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">插入排序</th>
+<th style="text-align:center">冒泡排序</th>
+<th style="text-align:center">选择排序</th>
+<th style="text-align:center">希尔排序</th>
+<th style="text-align:center">快速排序</th>
+<th style="text-align:center">归并排序</th>
+<th style="text-align:center">堆排序</th>
+<th style="text-align:center">计数排序</th>
+<th style="text-align:center">桶排序</th>
+<th style="text-align:center">基数排序</th>
+<th style="text-align:center">std::sort</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$n=10^3$ 随机数据 $a_i \le 10^5$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 7ms$</td>
+<td style="text-align:center">$\tt 6ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+</tr>
+<tr>
+<td style="text-align:center">$n=10^3$ 完全正序 $a_i \le 10^5$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+</tr>
+<tr>
+<td style="text-align:center">$n=10^3$ 完全倒序 $a_i \le 10^5$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 8ms$</td>
+<td style="text-align:center">$\tt 8ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+</tr>
+<tr>
+<td style="text-align:center">$n=10^4$ 随机数据 $a_i \le 10^5$</td>
+<td style="text-align:center">$\tt 80ms$</td>
+<td style="text-align:center">$\tt 373ms$</td>
+<td style="text-align:center">$\tt 200ms$</td>
+<td style="text-align:center">$\tt 7ms$</td>
+<td style="text-align:center">$\tt 6ms$</td>
+<td style="text-align:center">$\tt 6ms$</td>
+<td style="text-align:center">$\tt 7ms$</td>
+<td style="text-align:center">$\tt 5ms$</td>
+<td style="text-align:center">$\tt 8ms$</td>
+<td style="text-align:center">$\tt 5ms$</td>
+<td style="text-align:center">$\tt 6ms$</td>
+</tr>
+<tr>
+<td style="text-align:center">$n=10^4$ 随机数据 $a_i \le 10^5$</td>
+<td style="text-align:center">$\tt 80ms$</td>
+<td style="text-align:center">$\tt 372ms$</td>
+<td style="text-align:center">$\tt 198ms$</td>
+<td style="text-align:center">$\tt 7ms$</td>
+<td style="text-align:center">$\tt 5ms$</td>
+<td style="text-align:center">$\tt 6ms$</td>
+<td style="text-align:center">$\tt 7ms$</td>
+<td style="text-align:center">$\tt 5ms$</td>
+<td style="text-align:center">$\tt 7ms$</td>
+<td style="text-align:center">$\tt 5ms$</td>
+<td style="text-align:center">$\tt 6ms$</td>
+</tr>
+<tr>
+<td style="text-align:center">$n=10^4$ 完全正序 $a_i \le 10^5$</td>
+<td style="text-align:center">$\tt 79ms$</td>
+<td style="text-align:center">$\tt 5ms$</td>
+<td style="text-align:center">$\tt 4ms$</td>
+<td style="text-align:center">$\tt 5ms$</td>
+<td style="text-align:center">$\tt 5ms$</td>
+<td style="text-align:center">$\tt 6ms$</td>
+<td style="text-align:center">$\tt 6ms$</td>
+<td style="text-align:center">$\tt 5ms$</td>
+<td style="text-align:center">$\tt 7ms$</td>
+<td style="text-align:center">$\tt 5ms$</td>
+<td style="text-align:center">$\tt 5ms$</td>
+</tr>
+<tr>
+<td style="text-align:center">$n=10^4$ 完全倒序 $a_i \le 10^5$</td>
+<td style="text-align:center">$\tt 101ms$</td>
+<td style="text-align:center">$\tt 407ms$</td>
+<td style="text-align:center">$\tt 394ms$</td>
+<td style="text-align:center">$\tt 5ms$</td>
+<td style="text-align:center">$\tt 5ms$</td>
+<td style="text-align:center">$\tt 5ms$</td>
+<td style="text-align:center">$\tt 7ms$</td>
+<td style="text-align:center">$\tt 5ms$</td>
+<td style="text-align:center">$\tt 7ms$</td>
+<td style="text-align:center">$\tt 5ms$</td>
+<td style="text-align:center">$\tt 5ms$</td>
+</tr>
+<tr>
+<td style="text-align:center">$n=10^5$ 随机数据 $a_i \le 10^6$</td>
+<td style="text-align:center">TLE</td>
+<td style="text-align:center">TLE</td>
+<td style="text-align:center">TLE</td>
+<td style="text-align:center">$\tt 52ms$</td>
+<td style="text-align:center">$\tt 28ms$</td>
+<td style="text-align:center">$\tt 29ms$</td>
+<td style="text-align:center">$\tt 40ms$</td>
+<td style="text-align:center">$\tt 19ms$</td>
+<td style="text-align:center">$\tt 44ms$</td>
+<td style="text-align:center">$\tt 22ms$</td>
+<td style="text-align:center">$\tt 30ms$</td>
+</tr>
+<tr>
+<td style="text-align:center">$n=10^6$ 随机数据 $a_i \le 10^7$</td>
+<td style="text-align:center">TLE</td>
+<td style="text-align:center">TLE</td>
+<td style="text-align:center">TLE</td>
+<td style="text-align:center">$\tt 683ms$</td>
+<td style="text-align:center">$\tt 275ms$</td>
+<td style="text-align:center">$\tt 294ms$</td>
+<td style="text-align:center">$\tt 438ms$</td>
+<td style="text-align:center">$\tt 174ms$</td>
+<td style="text-align:center">$\tt 517ms$</td>
+<td style="text-align:center">$\tt 216ms$</td>
+<td style="text-align:center">$\tt 313ms$</td>
+</tr>
+<tr>
+<td style="text-align:center">$n=10^6$ 随机数据 $a_i \le 10^8$</td>
+<td style="text-align:center">TLE</td>
+<td style="text-align:center">TLE</td>
+<td style="text-align:center">TLE</td>
+<td style="text-align:center">$\tt 726ms$</td>
+<td style="text-align:center">$\tt 290ms$</td>
+<td style="text-align:center">$\tt 311ms$</td>
+<td style="text-align:center">$\tt 456ms$</td>
+<td style="text-align:center">MLE</td>
+<td style="text-align:center">$\tt 610ms$</td>
+<td style="text-align:center">$\tt 244ms$</td>
+<td style="text-align:center">$\tt 321ms$</td>
+</tr>
+<tr>
+<td style="text-align:center">总时间</td>
+<td style="text-align:center">$\tt \color{red}{352ms}$</td>
+<td style="text-align:center">$\color{red}{\tt 1176ms}$</td>
+<td style="text-align:center">$\color{red}{\tt 814ms}$</td>
+<td style="text-align:center">$\tt 1497ms$</td>
+<td style="text-align:center">$\tt 626ms$</td>
+<td style="text-align:center">$\tt 669ms$</td>
+<td style="text-align:center">$\tt 973ms$</td>
+<td style="text-align:center">$\color{red}{\tt 225ms}$</td>
+<td style="text-align:center">$\tt 1212ms$</td>
+<td style="text-align:center">$\tt 514ms$</td>
+<td style="text-align:center">$\tt 698ms$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>总结：当值域较小时，计数排序无疑是最佳选择，在所有 AC 的算法中时间的比较：</p>
+<p>基数排序 $&lt;$ 快速排序 $&lt;$ 归并排序 $&lt;$ <code>std::sort</code> $&lt;$ 堆排序 $&lt;$ 桶排序 $&lt;$ 希尔排序。</p>
 
     </div>
 
@@ -272,16 +453,22 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Sort/" rel="tag"># Sort</a>
+          </div>
 
         
 
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2024/03/01/tarjan-graph-algorithms/" rel="next" title="【学习笔记】Tarjan图论算法">
-      【学习笔记】Tarjan图论算法 <i class="fa fa-chevron-right"></i>
+    <a href="/2024/03/01/tarjan-graph-algorithms/" rel="prev" title="【学习笔记】Tarjan图论算法">
+      <i class="fa fa-chevron-left"></i> 【学习笔记】Tarjan图论算法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/03/02/splay-tree-algorithm/" rel="next" title="【学习笔记】平衡树Splay">
+      【学习笔记】平衡树Splay <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -341,7 +528,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -515,6 +701,61 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

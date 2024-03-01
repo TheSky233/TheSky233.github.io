@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="【学习笔记】动态树 Link-Cut Tree">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【学习笔记】动态树Link Cut Tree">
+<meta property="og:url" content="http://example.com/2024/03/02/link-cut-tree-data-structure/index.html">
+<meta property="og:site_name" content="TheSky233&#39;s Blog">
+<meta property="og:description" content="【学习笔记】动态树 Link-Cut Tree">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2023/01/08/pSVIlHH.png">
+<meta property="og:image" content="https://s1.ax1x.com/2023/01/08/pSVIdKS.png">
+<meta property="og:image" content="https://s1.ax1x.com/2023/01/08/pSVIUv8.png">
+<meta property="og:image" content="https://s1.ax1x.com/2023/01/08/pSVIt8P.png">
+<meta property="og:image" content="https://s1.ax1x.com/2023/01/08/pSVINgf.png">
+<meta property="og:image" content="https://s1.ax1x.com/2023/01/08/pSVIwDg.png">
+<meta property="og:image" content="https://s1.ax1x.com/2023/01/09/pSZXb1H.png">
+<meta property="og:image" content="https://cdn.luogu.com.cn/upload/pic/18097.png">
+<meta property="og:image" content="https://cdn.luogu.com.cn/upload/pic/18102.png">
+<meta property="article:published_time" content="2024-03-01T19:57:38.000Z">
+<meta property="article:modified_time" content="2024-03-01T20:01:34.937Z">
+<meta property="article:author" content="TheSky233">
+<meta property="article:tag" content="LCT">
+<meta property="article:tag" content="Data Structure">
+<meta property="article:tag" content="tree">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2023/01/08/pSVIlHH.png">
+
+<link rel="canonical" href="http://example.com/2024/03/02/link-cut-tree-data-structure/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【学习笔记】动态树Link Cut Tree | TheSky233's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <a target="_blank" rel="noopener" href="https://github.com/TheSky233/TheSky233.github.io" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">TheSky233's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">𝐴𝑛𝑑 𝑖𝑛 𝑡ℎ𝑎𝑡 𝑙𝑖𝑔ℎ𝑡...</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="algolia-results">
+  <div id="algolia-stats"></div>
+  <div id="algolia-hits"></div>
+  <div id="algolia-pagination" class="algolia-pagination"></div>
+</div>
+
+      
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/02/link-cut-tree-data-structure/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.luogu.com.cn/upload/usericon/501865.png">
+      <meta itemprop="name" content="TheSky233">
+      <meta itemprop="description" content="An OIer / PhOer">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TheSky233's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【学习笔记】动态树Link Cut Tree
+        </h1>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-03-02 03:57:38 / 修改时间：04:01:34" itemprop="dateCreated datePublished" datetime="2024-03-02T03:57:38+08:00">2024-03-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="【学习笔记】动态树-Link-Cut-Tree"><a href="#【学习笔记】动态树-Link-Cut-Tree" class="headerlink" title="【学习笔记】动态树 Link-Cut Tree"></a>【学习笔记】动态树 Link-Cut Tree</h1><span id="more"></span>
+<h2 id="闲话"><a href="#闲话" class="headerlink" title="- 闲话"></a>- 闲话</h2><p>LCT 优秀博客：</p>
+<ul>
+<li>$\color{black}\sf{F}\color{red}\sf{lashHu}$ 大佬的 cnblogs：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/flashhu/p/8324551.html">https://www.cnblogs.com/flashhu/p/8324551.html</a></li>
+</ul>
+<h2 id="动态树-Link-Cut-Tree"><a href="#动态树-Link-Cut-Tree" class="headerlink" title="- 动态树 Link-Cut Tree"></a>- 动态树 Link-Cut Tree</h2><h3 id="前置知识"><a href="#前置知识" class="headerlink" title="- 前置知识"></a>- 前置知识</h3><ul>
+<li>「<strong>必学</strong>」<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/501865/splay-study-notes">Splay</a>。</li>
+<li>「<strong>重要</strong>」<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3384">树链剖分 / 重链剖分</a>（虽然并不需要用到，但是了解重链剖分的思想还是有用的）。</li>
+<li>「<strong>必学</strong>」实链剖分。</li>
+</ul>
+<p><strong>实链剖分</strong>是一种<strong>动态</strong>的剖分方式。</p>
+<p>对于一个点连向它儿子的所有边，我们选择一条边进行剖分。<br>被选择的边称为实边，其他边为虚边。<br>实边连接的儿子称为实儿子。<br>对于一条实边连接成的链，称为实链。</p>
+<p>实链剖分的剖分结果是可变的，可以灵活调整。</p>
+<p>和<strong>重链剖分</strong>的区别就是，重链剖分需要找到儿子子树大小最大的一个连重边，而实链剖分不需要。</p>
+<h3 id="何为-Link-Cut-Tree"><a href="#何为-Link-Cut-Tree" class="headerlink" title="- 何为 Link-Cut Tree"></a>- 何为 Link-Cut Tree</h3><p>给定一棵树，有以下操作：</p>
+<ul>
+<li>修改 $x$ 的点权。</li>
+<li>求出 $x,y$ 的简单路径的点权和。</li>
+<li>修改 $x$ 子树每一点的点权。</li>
+<li>求出 $x$ 子树的点权和。</li>
+</ul>
+<p>一个很简单的「树链剖分」题目，不是吗？</p>
+<p>如果我们增加几个操作呢？</p>
+<ul>
+<li>断开 $x \to y$ 这一条边。</li>
+<li>连上 $x \to y$ 这一条边。</li>
+<li>把这棵树改成以 $x$ 为根。</li>
+</ul>
+<p>很显然，因为这棵树要动态删边和加边，且有换根操作，维护静态树的树链剖分就无法处理这类题目了，「动态树 Link-Cut Tree，LCT」应运而生。</p>
+<p>具体的，LCT 可以维护以下操作（引自 FlashHu cnblogs）：</p>
+<ul>
+<li>查询、修改链上的信息（最值，总和等）</li>
+<li>随意指定原树的根（即换根）</li>
+<li>动态连边、删边</li>
+<li>合并两棵树、分离一棵树</li>
+<li>动态维护连通性</li>
+<li>更多意想不到的操作</li>
+</ul>
+<p>因为 LCT 是动态的数据结构，所以线段树等已不适合维护，引入「Splay」这种平衡树来维护之 $^{\texttt{[1]}}$。</p>
+<p>LCT 实质上维护了一个<strong>森林</strong>，每棵树 都由若干棵 Splay 维护。有如下性质：</p>
+<ol>
+<li><p>每棵 Splay 都维护一条<strong>原树的路径</strong>，这条路径满足节点深度依次增大，且中序遍历 Splay 得到的每个点的深度序列<strong>严格递增</strong>。单独的一个点也可以是一棵 Splay。</p>
+<ul>
+<li>举个例子，这棵树的构造为 <code>1(2,3)</code>，即 $1$ 号节点为树根，深度为 $1$，$2,3$ 号节点分别为它的左右儿子，深度为 $2$。那么这个 Splay 森林可以是这样的：</li>
+</ul>
+<ol>
+<li>$\texttt{[1,2][3]}$，第一棵 Splay 维护 $1 \to 2$ 这条路径，深度单调递增（$1,2$），第二棵维护 $3$，单独的一个点。</li>
+<li>$\texttt{[1,3][2]}$，第一棵 Splay 维护 $1 \to 3$ 这条路径，深度单调递增（$1,2$），第二棵维护 $2$，单独的一个点。</li>
+<li><p>$\texttt{[1][2][3]}$，三个点都为一棵独立的 Splay。</p>
+<p>注意 $\texttt{[1,2,3]}$ 这棵 Splay 是不合法的，因为 $2,3$ 的深度相等。</p>
+</li>
+</ol>
+</li>
+<li><p>每个节点被包含且仅被包含在<strong>一棵</strong>Splay 内。</p>
+</li>
+<li><p>由以上两条性质我们可以得出，每个节点只能和它的儿子连<strong>一条实边</strong>，其余的儿子都和他连<strong>虚边</strong>，并且每一条虚边的儿子所在的 Splay 要指向这个节点。但是这个节点并不能指向其儿子的 Splay（即 FlashHu 博客中的<strong>认父不认子</strong>）。</p>
+</li>
+</ol>
+<h2 id="具体操作"><a href="#具体操作" class="headerlink" title="- 具体操作"></a>- 具体操作</h2><h3 id="text-access-x"><a href="#text-access-x" class="headerlink" title="- $\text{access}(x)$"></a>- $\text{access}(x)$</h3><ul>
+<li><p>LCT 最核心的操作。</p>
+</li>
+<li><p>打通根节点和指定节点的路径，即把根节点和 $x$ 中间的路径都变成 <strong>实边</strong>，形成一条以根节点开始，指定节点结束的 Splay。</p>
+</li>
+</ul>
+<p>来几张图 $^{\texttt{[2]}}$：</p>
+<p>假设一开始实边和虚边是这么划分的：</p>
+<p><img src="https://s1.ax1x.com/2023/01/08/pSVIlHH.png" alt=""></p>
+<p>那么所形成的 Splay 森林<strong>可能</strong>是这样的（绿框中为一个 Splay）：</p>
+<p><img src="https://s1.ax1x.com/2023/01/08/pSVIdKS.png" alt=""></p>
+<p>现在我们要 $\text{access(N)}$，把 $\text{A} \to \text{N}$ 的路径都打通成实边，变成一颗 Splay。</p>
+<p>根据性质 3，原来有些实边要变虚（因为 $\text{A} \to \text{N}$ 的有些虚边要变实，同层只能有一条实边连向父亲）。那么原树可能要变成这样：</p>
+<p><img src="https://s1.ax1x.com/2023/01/08/pSVIUv8.png" alt=""></p>
+<p>我们一步一步自底向上拉。</p>
+<p>首先 $\text{splay(N)}$，把 $\text{N}$ 转到所在 Splay 的根。</p>
+<p>因为要 <strong>以指定节点结束</strong>，所以比他深且在一颗 Splay 中的点要去除。</p>
+<p>因为性质 1，中序遍历 Splay 得到的每个点的深度序列<strong>严格递增</strong>，所以我们把 $\text{N}$ 右边的点去掉即可。即把 $\text{N} \to \text{O}$ 这条边变虚。直接把 $\text{N}$ 的右子树变空，然后让 $\text{O}$ 所在 Splay 指向 $\text{N}$ 即可。</p>
+<p>如下图：</p>
+<p><img src="https://s1.ax1x.com/2023/01/08/pSVIt8P.png" alt=""></p>
+<p>接下来要打通 $\text{I} \to \text{L}$ 的边，首先找到 $\text{N}$ 所在 Splay 指向的节点 $\text{I}$，并 $\text{splay(I)}$，让 $\text{I}$ 转到其所在 Splay 的树根，这样保证它的右儿子肯定是它在原树中连的虚边（性质 1），把它的右子树置空。</p>
+<p>然后就可以连接 $\text{I} \to \text{L}$ 了，因为 $\text{L}$ 所指向的点是 $\text{I}$，把 $\text{N}$ 直接连到 $\text{I}$ 的右子树即可。</p>
+<p><img src="https://s1.ax1x.com/2023/01/08/pSVINgf.png" alt=""></p>
+<p>$\text{I}$ 指向 $\text{H}$，接着 $\text{splay(H)}$，把 $\text{H}$ 的右子树直接置为 $\text{I}$ 即可。</p>
+<p><img src="https://s1.ax1x.com/2023/01/08/pSVIwDg.png" alt=""></p>
+<p>$\text{H}$ 指向 $\text{A}$，于是 $\text{splay(A)}$，把 $\text{A}$ 的右子树更新成 $\text{H}$。</p>
+<p><img src="https://s1.ax1x.com/2023/01/09/pSZXb1H.png" alt=""></p>
+<p>于是 $\text{A} \to \text{N}$ 就在一个 Splay 里了，且正好中序遍历以 $\text{A}$ 开始，以 $\text{N}$ 结束。</p>
+<p>代码很简单，只需要四步：</p>
+<ol>
+<li>$\text{splay}$ 当前节点，转到根。</li>
+<li>找到它所指的父亲，换右儿子。</li>
+<li>更新信息，<code>pushup</code>。</li>
+<li>把当前节点变成它的轻边所指的父亲，转 $1$。</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">access</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> y=<span class="number">0</span>;x;y=x,x=fa[x])</span><br><span class="line">		<span class="built_in">splay</span>(x),ch[x][<span class="number">1</span>]=y,<span class="built_in">pushup</span>(x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="text-makeroot-x"><a href="#text-makeroot-x" class="headerlink" title="- $\text{makeroot}(x)$"></a>- $\text{makeroot}(x)$</h3><ul>
+<li>把 $x$ 拉到整棵树的根。</li>
+</ul>
+<p>在介绍 $\text{makeroot}$ 前，先来回顾一下 Splay 的区间反转操作，不熟悉的可以看一下<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3391">模板题</a>。</p>
+<h4 id="text-pushr-x"><a href="#text-pushr-x" class="headerlink" title="- $\text{pushr(x)}$"></a>- $\text{pushr(x)}$</h4><p>我们注意到，将 $[l,r]$ 这一段区间反转，相当于对于 $l \le id \le r$ 的每一个节点的左右子树<strong>自上而下</strong> 反转。</p>
+<p>引用几张图 $^{\texttt{[3]}}$：</p>
+<p><img src="https://cdn.luogu.com.cn/upload/pic/18097.png" alt=""></p>
+<p>这是一棵树，那么如果我们想翻转 $[2,4]$ 这个区间，只需要 $\text{splay}$ $1$ 和 $5$，使得 $5$ 的左子树都是 $&gt;1$ 且 $&lt;5$ 的（二叉平衡树的性质），于是只需要反转 $[2,4]$ 的左右子树了。</p>
+<p><img src="https://cdn.luogu.com.cn/upload/pic/18102.png" alt=""></p>
+<p>但在这个地方我们可以考虑打个标记，标记的存在就只在于记录现在对于当前节点应不应该翻转两个子树。</p>
+<p>接下来回到 $\text{makeroot}$。</p>
+<p>首先显然要把根节点到 $x$ 的路径打通，否则根节点和 $x$ 都不在一棵 Splay 中，谈何换根。</p>
+<p>所以我们先 $\text{access}(x)$，然后根节点到 $x$ 就是一条实路径，且中序遍历以根节点开头，以 $x$ 结尾。不难发现此时 $x$ 就是这颗 Splay 中深度最深的点。然后我们先 $\text{splay}(x)$，使得 $x$ 节点为<strong>这颗 Splay 的根</strong>，（注意<strong>不是</strong>整棵树的根，因为先序遍历仍以原先根节点开始）。这时候 $x$ 没有右子树。因为 $x$ 的深度最深，这时候我们翻转一下，$\text{pushr}$，把这一棵 Splay 深度都改变，这时候 $x$ 就变成的这棵树最上面的节点（<strong>真正的</strong>根，它没有左子树），大功告成。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">pushr</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">	<span class="built_in">swap</span>(<span class="built_in">lc</span>(x),<span class="built_in">rc</span>(x));</span><br><span class="line">	r[x]^=<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">makeroot</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">	<span class="built_in">access</span>(x); <span class="built_in">splay</span>(x);</span><br><span class="line">	<span class="built_in">pushr</span>(x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="text-findroot-x"><a href="#text-findroot-x" class="headerlink" title="- $\text{findroot}(x)$"></a>- $\text{findroot}(x)$</h3><ul>
+<li>找到 $x$ 所在<strong>原树</strong>的根，主要用来判断两点的连通性（即如果 $\text{findroot}(x)=\text{findroot}(y)$ 表明 $x,y$ 在一棵树中）。</li>
+</ul>
+<p>我们先把根节点到 $x$ 的路径打通，然后 $\text{splay}(x)$，把 $x$ 转到<strong>这棵 Splay</strong> 的根（不是原树的根，没有破坏结构），这时候根据二叉排序树的性质，所有深度比 $x$ 小的点都在 $x$ 的左子树，循环找下去，直到叶节点即可。</p>
+<p><strong>注意往下找左儿子的时候，一定要下放翻转标记，不然可能会导致 Splay 信息不正确</strong>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">findroot</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">	<span class="built_in">access</span>(x); <span class="built_in">splay</span>(x);</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">lc</span>(x)) <span class="built_in">pushdown</span>(x),x=<span class="built_in">lc</span>(x); <span class="comment">// 一定要 pushdown！</span></span><br><span class="line">	<span class="built_in">splay</span>(x); <span class="comment">// 保证复杂度</span></span><br><span class="line">	<span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="text-split-x-y"><a href="#text-split-x-y" class="headerlink" title="- $\text{split}(x,y)$"></a>- $\text{split}(x,y)$</h3><ul>
+<li>指定出一条 $x \to y$ 路径的 Splay。</li>
+</ul>
+<p>先 $\text{makeroot}(x)$，把 $x$ 变成当前树的根，然后 $\text{access}(y)$，提取 $x \to y$ 的路径。最后 $\text{splay}(y)$ 保证复杂度。这样访问这个 Splay 的时候只需要访问 $y$ 就可以了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">split</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span></span>&#123;</span><br><span class="line">	<span class="built_in">makeroot</span>(x); <span class="built_in">access</span>(y);</span><br><span class="line">	<span class="built_in">splay</span>(y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="text-nroot-x"><a href="#text-nroot-x" class="headerlink" title="- $\text{nroot}(x)$"></a>- $\text{nroot}(x)$</h3><ul>
+<li>判断当前节点是否是它所在 Splay 的根。</li>
+</ul>
+<p>原理很简单，如果他是 Splay 的根（即它和它的父亲连的是<strong>虚边</strong>），它的父亲的儿子里没有它（它的父亲连到它的<strong>实儿子</strong>了）。</p>
+<p>如果返回 <code>true</code>，就说明它不是根。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">bool</span> <span class="title">nroot</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">lc</span>(fa[x])==x || <span class="built_in">rc</span>(fa[x])==x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="text-link-x-y"><a href="#text-link-x-y" class="headerlink" title="- $\text{link}(x,y)$"></a>- $\text{link}(x,y)$</h3><ul>
+<li>连上 $x \to y$ 的边。</li>
+</ul>
+<p>可以自行决定把 $x$ 的父亲设为 $y$ 还是把 $y$ 的父亲设为 $x$，这里我把 $x$ 的父亲设为 $y$，即在 $x,y$ 间连一条轻边。</p>
+<p>代码也很简单，如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">bool</span> <span class="title">link</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span></span>&#123;</span><br><span class="line">	<span class="built_in">makeroot</span>(x); <span class="comment">// 使 x 成为它所在的树的根</span></span><br><span class="line">	<span class="keyword">if</span>(<span class="built_in">findroot</span>(y)==x) <span class="keyword">return</span> <span class="number">0</span>;  <span class="comment">// 两点已在一棵树内，连边不合法</span></span><br><span class="line">	fa[x]=y;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果题目保证连边合法，代码就可以更简单：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">link</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span></span>&#123;</span><br><span class="line">	<span class="built_in">makeroot</span>(x);</span><br><span class="line">	fa[x]=y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="text-cut-x-y"><a href="#text-cut-x-y" class="headerlink" title="- $\text{cut}(x,y)$"></a>- $\text{cut}(x,y)$</h3><p>断开 $x \to y$ 的边。</p>
+<p>如果题目保证合法，这个操作倒是很容易。</p>
+<p>先提取出 $x \to y$ 的路径（即 $\text{split}(x,y)$），然后因为 $y$ 变成了 Splay 的根（见 $\text{split}$ 那一段，最后有说明），$x$ 必在它的左子树上</p>
+<p>（关于左子树有必要做个说明：因为我们是先 $\text{makeroot}(x)$，然后 $\text{access}(y)$ 的，所以$x$ <strong>在 Splay 中</strong>深度一定比 $y$ 浅，于是当 $\text{splay}(y)$ 之后，$x$ 必在它的左子树）。</p>
+<p>于是代码就有了：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">bool</span> <span class="title">cut</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span></span>&#123;</span><br><span class="line">	<span class="built_in">split</span>(x,y);</span><br><span class="line">	fa[x]=<span class="built_in">lc</span>(y)=<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">pushup</span>(y); <span class="comment">// y少了个儿子</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是如果没有保证连边合法呢？</p>
+<ul>
+<li><p>我们先要看 $x,y$ 是否在一棵 Splay 中（否则原来就断开的，不合法）。</p>
+</li>
+<li><p>然后我们要看 $x,y$ 有无父子关系，不然不合法。</p>
+</li>
+<li><p>最后我们要看中序遍历下，$x,y$ 中间有无其他节点（即 $y$ 有没有右子树）。</p>
+</li>
+</ul>
+<p>三个关系都满足就可以了。</p>
+<p>这里注意 $\text{findroot}(y)$ 之后 $x$ 是原树的树根，而且因为 $\text{findroot}$ 里先 $\text{access}(y)$ 的，所以 $y$ 一定在 $x$ 的右子树。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">bool</span> <span class="title">cut</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span></span>&#123;</span><br><span class="line">	<span class="built_in">makeroot</span>(x);</span><br><span class="line">	<span class="keyword">if</span>(<span class="built_in">findroot</span>(y)!=x || fa[y]!=x || <span class="built_in">lc</span>(y)) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	fa[y]=<span class="built_in">rc</span>(x)=<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">pushup</span>(x);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>至此，LCT 的基本操作就讲完啦！</p>
+<h2 id="LCT-中不同于普通-Splay-的几个点"><a href="#LCT-中不同于普通-Splay-的几个点" class="headerlink" title="LCT 中不同于普通 Splay 的几个点"></a>LCT 中不同于普通 Splay 的几个点</h2><ol>
+<li><p>$\text{splay}$ 时，一定要先判断要转的点是不是根！</p>
+<ul>
+<li>否则你会发现 <code>fa[x]=0</code> 且 <code>fa[fa[x]]=0</code>，然后你的 Splay 就寄了。</li>
+</ul>
+</li>
+<li><p>$\text{splay}$ 前要先堆栈下放标记。</p>
+<ul>
+<li>否则你会发现你的 Splay 标记乱成一团，又寄了 $\texttt{:(}$。</li>
+</ul>
+</li>
+</ol>
+<h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><p>模板题：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3690">https://www.luogu.com.cn/problem/P3690</a>。</p>
+<p>维护其他什么操作的话改一下 <code>pushup</code> 即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">char</span> <span class="title">gc</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">static</span> <span class="type">char</span> buf[<span class="number">100000</span>],*p1=buf,*p2=buf;</span><br><span class="line">    <span class="keyword">return</span> p1==p2&amp;&amp;(p2=(p1=buf)+<span class="built_in">fread</span>(buf,<span class="number">1</span>,<span class="number">100000</span>,stdin),p1==p2)?EOF:*p1++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">read</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">char</span> ch=<span class="built_in">gc</span>(); <span class="type">int</span> x=<span class="number">0</span>; <span class="type">bool</span> f=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(!(ch&gt;=<span class="string">&#x27;0&#x27;</span>&amp;&amp;ch&lt;=<span class="string">&#x27;9&#x27;</span>))f|=(ch==<span class="string">&#x27;-&#x27;</span>),ch=<span class="built_in">gc</span>();</span><br><span class="line">    <span class="keyword">while</span>(ch&gt;=<span class="string">&#x27;0&#x27;</span>&amp;&amp;ch&lt;=<span class="string">&#x27;9&#x27;</span>)x=(x&lt;&lt;<span class="number">1</span>)+(x&lt;&lt;<span class="number">3</span>)+(ch^<span class="number">48</span>),ch=<span class="built_in">gc</span>();</span><br><span class="line">    <span class="keyword">return</span> f?-x:x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">2e5</span>+<span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">_lct</span>&#123;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> lc(x) ch[x][0]</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> rc(x) ch[x][1]</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="type">int</span> ch[N][<span class="number">2</span>],val[N],fa[N],s[N],stk[N];</span><br><span class="line">	<span class="type">bool</span> r[N];</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="type">bool</span> <span class="title">nroot</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">lc</span>(fa[x])==x || <span class="built_in">rc</span>(fa[x])==x;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">pushr</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">		<span class="built_in">swap</span>(<span class="built_in">lc</span>(x),<span class="built_in">rc</span>(x));</span><br><span class="line">		r[x]^=<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">pushup</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">		s[x]=s[<span class="built_in">lc</span>(x)]^s[<span class="built_in">rc</span>(x)]^val[x];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">pushdown</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(r[x])&#123;</span><br><span class="line">			<span class="keyword">if</span>(<span class="built_in">lc</span>(x)) <span class="built_in">pushr</span>(<span class="built_in">lc</span>(x));</span><br><span class="line">			<span class="keyword">if</span>(<span class="built_in">rc</span>(x)) <span class="built_in">pushr</span>(<span class="built_in">rc</span>(x));</span><br><span class="line">			r[x]=<span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">rotate</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">		<span class="type">int</span> y=fa[x],z=fa[y];</span><br><span class="line">		<span class="type">int</span> k=<span class="built_in">rc</span>(y)==x,w=ch[x][!k];</span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">nroot</span>(y)) ch[z][<span class="built_in">rc</span>(z)==y]=x; ch[x][!k]=y; ch[y][k]=w;</span><br><span class="line">		<span class="keyword">if</span>(w) fa[w]=y; fa[x]=z,fa[y]=x;</span><br><span class="line">		<span class="built_in">pushup</span>(y);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">splay</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">		<span class="type">int</span> y=x,z=<span class="number">0</span>;</span><br><span class="line">		stk[++z]=y;</span><br><span class="line">		<span class="keyword">while</span>(<span class="built_in">nroot</span>(y)) stk[++z]=y=fa[y];</span><br><span class="line">		<span class="keyword">while</span>(z) <span class="built_in">pushdown</span>(stk[z--]);</span><br><span class="line">		<span class="keyword">while</span>(<span class="built_in">nroot</span>(x))&#123;</span><br><span class="line">			y=fa[x]; z=fa[y];</span><br><span class="line">			<span class="keyword">if</span>(<span class="built_in">nroot</span>(y)) <span class="built_in">rotate</span>((<span class="built_in">lc</span>(z)==y)^(<span class="built_in">lc</span>(y)==x)?x:y);</span><br><span class="line">			<span class="built_in">rotate</span>(x);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">pushup</span>(x);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">access</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> y=<span class="number">0</span>;x;x=fa[y=x])</span><br><span class="line">			<span class="built_in">splay</span>(x),<span class="built_in">rc</span>(x)=y,<span class="built_in">pushup</span>(x);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">makeroot</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">		<span class="built_in">access</span>(x); <span class="built_in">splay</span>(x);</span><br><span class="line">		<span class="built_in">pushr</span>(x);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">findroot</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">		<span class="built_in">access</span>(x); <span class="built_in">splay</span>(x);</span><br><span class="line">		<span class="keyword">while</span>(<span class="built_in">lc</span>(x)) <span class="built_in">pushdown</span>(x),x=<span class="built_in">lc</span>(x);</span><br><span class="line">		<span class="built_in">splay</span>(x);</span><br><span class="line">		<span class="keyword">return</span> x;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">split</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span></span>&#123;</span><br><span class="line">		<span class="built_in">makeroot</span>(x); <span class="built_in">access</span>(y);</span><br><span class="line">		<span class="built_in">splay</span>(y);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="type">bool</span> <span class="title">link</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span></span>&#123;</span><br><span class="line">		<span class="built_in">makeroot</span>(x);</span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">findroot</span>(y)==x) <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">		fa[x]=y;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="type">bool</span> <span class="title">cut</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span></span>&#123;</span><br><span class="line">		<span class="built_in">makeroot</span>(x);</span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">findroot</span>(y)!=x || fa[y]!=x || <span class="built_in">lc</span>(y)) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		fa[y]=<span class="built_in">rc</span>(x)=<span class="number">0</span>;</span><br><span class="line">		<span class="built_in">pushup</span>(x);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;lct;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n,m;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	n=<span class="built_in">read</span>(); m=<span class="built_in">read</span>();</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) lct.val[i]=<span class="built_in">read</span>();</span><br><span class="line">	<span class="keyword">while</span>(m--)&#123;</span><br><span class="line">		<span class="type">int</span> opt,x,y;</span><br><span class="line">		opt=<span class="built_in">read</span>(); x=<span class="built_in">read</span>(); y=<span class="built_in">read</span>();</span><br><span class="line">		<span class="keyword">switch</span>(opt)&#123;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">0</span>:&#123;lct.<span class="built_in">split</span>(x,y); <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,lct.s[y]); <span class="keyword">break</span>;&#125;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">1</span>:&#123;lct.<span class="built_in">link</span>(x,y); <span class="keyword">break</span>;&#125;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">2</span>:&#123;lct.<span class="built_in">cut</span>(x,y); <span class="keyword">break</span>;&#125;</span><br><span class="line">			<span class="keyword">case</span> <span class="number">3</span>:&#123;lct.<span class="built_in">splay</span>(x); lct.val[x]=y; <span class="keyword">break</span>;&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="- Reference"></a>- Reference</h2><p>$\texttt{[1]}$：因为 LCT 的 <code>makeroot</code> 等操作需要翻转一棵树，使得 Treap 等平衡树均已不适用，但是 FHQ Treap 或许也可以维护，详见 <a target="_blank" rel="noopener" href="https://immortalco.blog.uoj.ac/blog/2342">https://immortalco.blog.uoj.ac/blog/2342</a>。</p>
+<p>$\texttt{[2]}$：引自 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/flashhu/p/8324551.html">https://www.cnblogs.com/flashhu/p/8324551.html</a></p>
+<p>$\texttt{[3]}$：引自 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/pks-LOVING/splay-chu-li-ou-jian-cao-zuo-fan-zhuai-cao-zuo-reverse">https://www.luogu.com.cn/blog/pks-LOVING/splay-chu-li-ou-jian-cao-zuo-fan-zhuai-cao-zuo-reverse</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/LCT/" rel="tag"># LCT</a>
+              <a href="/tags/Data-Structure/" rel="tag"># Data Structure</a>
+              <a href="/tags/tree/" rel="tag"># tree</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/03/02/odt-data-structure/" rel="prev" title="【学习笔记】珂朵莉树">
+      <i class="fa fa-chevron-left"></i> 【学习笔记】珂朵莉树
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/03/02/number-theory-in-oi/" rel="next" title="【学习笔记】OI中的数论">
+      【学习笔记】OI中的数论 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E5%8A%A8%E6%80%81%E6%A0%91-Link-Cut-Tree"><span class="nav-number">1.</span> <span class="nav-text">【学习笔记】动态树 Link-Cut Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%B2%E8%AF%9D"><span class="nav-number">1.1.</span> <span class="nav-text">- 闲话</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E6%A0%91-Link-Cut-Tree"><span class="nav-number">1.2.</span> <span class="nav-text">- 动态树 Link-Cut Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="nav-number">1.2.1.</span> <span class="nav-text">- 前置知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%95%E4%B8%BA-Link-Cut-Tree"><span class="nav-number">1.2.2.</span> <span class="nav-text">- 何为 Link-Cut Tree</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E6%93%8D%E4%BD%9C"><span class="nav-number">1.3.</span> <span class="nav-text">- 具体操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#text-access-x"><span class="nav-number">1.3.1.</span> <span class="nav-text">- $\text{access}(x)$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#text-makeroot-x"><span class="nav-number">1.3.2.</span> <span class="nav-text">- $\text{makeroot}(x)$</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#text-pushr-x"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">- $\text{pushr(x)}$</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#text-findroot-x"><span class="nav-number">1.3.3.</span> <span class="nav-text">- $\text{findroot}(x)$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#text-split-x-y"><span class="nav-number">1.3.4.</span> <span class="nav-text">- $\text{split}(x,y)$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#text-nroot-x"><span class="nav-number">1.3.5.</span> <span class="nav-text">- $\text{nroot}(x)$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#text-link-x-y"><span class="nav-number">1.3.6.</span> <span class="nav-text">- $\text{link}(x,y)$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#text-cut-x-y"><span class="nav-number">1.3.7.</span> <span class="nav-text">- $\text{cut}(x,y)$</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LCT-%E4%B8%AD%E4%B8%8D%E5%90%8C%E4%BA%8E%E6%99%AE%E9%80%9A-Splay-%E7%9A%84%E5%87%A0%E4%B8%AA%E7%82%B9"><span class="nav-number">1.4.</span> <span class="nav-text">LCT 中不同于普通 Splay 的几个点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="nav-number">1.5.</span> <span class="nav-text">完整代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.6.</span> <span class="nav-text">- Reference</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="TheSky233"
+      src="https://cdn.luogu.com.cn/upload/usericon/501865.png">
+  <p class="site-author-name" itemprop="name">TheSky233</p>
+  <div class="site-description" itemprop="description">An OIer / PhOer</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/TheSky233" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;TheSky233" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1602458048@qq.com" title="E-Mail → mailto:1602458048@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.luogu.com.cn/user/501865" title="https:&#x2F;&#x2F;www.luogu.com.cn&#x2F;user&#x2F;501865" rel="noopener" target="_blank">TheSky233's Luogu</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheSky233</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">65k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">59 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
+<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script>
+<script src="/js/algolia-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="CSP-S 2023 游记 &#x2F; Final Verdict.真的是最后一次了。 四年的 OI，也该有个终点。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSP-S 2023 游记 &#x2F; Final Verdict.">
+<meta property="og:url" content="http://example.com/2024/03/02/csp-s-2023-final-verdict/index.html">
+<meta property="og:site_name" content="TheSky233&#39;s Blog">
+<meta property="og:description" content="CSP-S 2023 游记 &#x2F; Final Verdict.真的是最后一次了。 四年的 OI，也该有个终点。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.luogu.com.cn/upload/image_hosting/ts1qjxxm.png">
+<meta property="og:image" content="https://cdn.luogu.com.cn/upload/image_hosting/zyuh4870.png">
+<meta property="og:image" content="https://cdn.luogu.com.cn/upload/image_hosting/sbo1alr9.png">
+<meta property="og:image" content="bilibili:BV1sH4y1R7FG">
+<meta property="article:published_time" content="2024-03-01T20:11:39.000Z">
+<meta property="article:modified_time" content="2024-03-01T20:36:02.422Z">
+<meta property="article:author" content="TheSky233">
+<meta property="article:tag" content="Travel Notes">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.luogu.com.cn/upload/image_hosting/ts1qjxxm.png">
+
+<link rel="canonical" href="http://example.com/2024/03/02/csp-s-2023-final-verdict/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>CSP-S 2023 游记 / Final Verdict. | TheSky233's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <a target="_blank" rel="noopener" href="https://github.com/TheSky233/TheSky233.github.io" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">TheSky233's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">𝐴𝑛𝑑 𝑖𝑛 𝑡ℎ𝑎𝑡 𝑙𝑖𝑔ℎ𝑡...</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="algolia-results">
+  <div id="algolia-stats"></div>
+  <div id="algolia-hits"></div>
+  <div id="algolia-pagination" class="algolia-pagination"></div>
+</div>
+
+      
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/02/csp-s-2023-final-verdict/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.luogu.com.cn/upload/usericon/501865.png">
+      <meta itemprop="name" content="TheSky233">
+      <meta itemprop="description" content="An OIer / PhOer">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TheSky233's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CSP-S 2023 游记 / Final Verdict.
+        </h1>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-03-02 04:11:39 / 修改时间：04:36:02" itemprop="dateCreated datePublished" datetime="2024-03-02T04:11:39+08:00">2024-03-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B8%B8%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">游记</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="CSP-S-2023-游记-Final-Verdict"><a href="#CSP-S-2023-游记-Final-Verdict" class="headerlink" title="CSP-S 2023 游记 / Final Verdict."></a>CSP-S 2023 游记 / Final Verdict.</h1><p><strong>真的</strong>是最后一次了。</p>
+<p>四年的 OI，也该有个终点。</p>
+<span id="more"></span>
+<p>又有一位同机房好友与 OI 渐行渐远了。</p>
+<p>还有好多想说的 先写到这里吧。</p>
+<p>怎么好像把游记写成日记了。</p>
+<hr>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/501865/csp-s-2023-final-verdict#:~:text=2023/9/16"><strong>初赛</strong></a></li>
+</ul>
+<hr>
+<h2 id="Day-48-Day-13-texttt-2023-9-2"><a href="#Day-48-Day-13-texttt-2023-9-2" class="headerlink" title="Day -48 / Day -13 $^\texttt{2023/9/2}$"></a>Day -48 / Day -13 $^\texttt{2023/9/2}$</h2><ul>
+<li>开坑。</li>
+</ul>
+<hr>
+<h2 id="Day-47-Day-12-texttt-2023-9-3"><a href="#Day-47-Day-12-texttt-2023-9-3" class="headerlink" title="Day -47 / Day -12 $^\texttt{2023/9/3}$"></a>Day -47 / Day -12 $^\texttt{2023/9/3}$</h2><ul>
+<li><p>下午开学，怎么会是呢。</p>
+</li>
+<li><p>决定每天晚上刷一套初赛卷。</p>
+</li>
+<li><p>CSP-S 2020 ✔ $\quad \text{64 pts.}$ $\quad$ 其中快速排序的那题复杂度全错，废了。 $\quad$ $^\texttt{2023/9/3}$</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>Amnéhilesie 怎么这么好听。</li>
+</ul>
+<hr>
+<h2 id="Day-46-Day-11-texttt-2023-9-4"><a href="#Day-46-Day-11-texttt-2023-9-4" class="headerlink" title="Day -46 / Day -11 $^\texttt{2023/9/4}$"></a>Day -46 / Day -11 $^\texttt{2023/9/4}$</h2><ul>
+<li>看了眼初赛书从组合数学到离散数学的那部分。</li>
+</ul>
+<script type="math/tex; mode=display">{\text{ A }^m_n } = \dfrac{ n! }{ (n-m)! }</script><script type="math/tex; mode=display">{\text{ C }^m_n } = \binom{ n }{ m } = \dfrac{ n! }{ m!(n-m)! }</script><script type="math/tex; mode=display">{F(n) = (n - 1) \times (F(n - 1) + F(n - 2)) }</script><script type="math/tex; mode=display">{S(n, k) = S(n - 1, k - 1) + k \times S(n - 1, k) }</script><script type="math/tex; mode=display">{ {\color{ red }\lor } \to \text{ or }, { \color{ red }\land } \to \text{ and }, { \color{ red }\neg } \to \text{ not } }</script><hr>
+<h2 id="Day-45-Day-10-texttt-2023-9-5"><a href="#Day-45-Day-10-texttt-2023-9-5" class="headerlink" title="Day -45 / Day -10 $^\texttt{2023/9/5}$"></a>Day -45 / Day -10 $^\texttt{2023/9/5}$</h2><ul>
+<li><p>做了份初赛卷，感觉还行啊。</p>
+</li>
+<li><p>阅读程序居然是数位 dp，一眼没学过 /fn</p>
+</li>
+</ul>
+<hr>
+<h2 id="Day-44-Day-9-texttt-2023-9-6"><a href="#Day-44-Day-9-texttt-2023-9-6" class="headerlink" title="Day -44 / Day -9 $^\texttt{2023/9/6}$"></a>Day -44 / Day -9 $^\texttt{2023/9/6}$</h2><ul>
+<li><p>补了昨天的坑 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/bestFy0731/solution-p2602">https://www.luogu.com.cn/blog/bestFy0731/solution-p2602</a></p>
+</li>
+<li><p>做了一套 S 组初赛模拟卷，$98.5 \text{pts}$，怎么会是呢？</p>
+</li>
+</ul>
+<hr>
+<h2 id="Day-43-Day-8-texttt-2023-9-7"><a href="#Day-43-Day-8-texttt-2023-9-7" class="headerlink" title="Day -43 / Day -8 $^\texttt{2023/9/7}$"></a>Day -43 / Day -8 $^\texttt{2023/9/7}$</h2><ul>
+<li>做了一套 S 组初赛模拟卷，$90 \text{pts}$，怎么会是呢？</li>
+</ul>
+<hr>
+<h2 id="Day-38-Day-3-texttt-2023-9-12"><a href="#Day-38-Day-3-texttt-2023-9-12" class="headerlink" title="Day -38 / Day -3 $^\texttt{2023/9/12}$"></a>Day -38 / Day -3 $^\texttt{2023/9/12}$</h2><ul>
+<li>做了套初赛卷。$86.5\text{pts}$。</li>
+</ul>
+<hr>
+<h2 id="Day-36-Day-1-texttt-2023-9-14"><a href="#Day-36-Day-1-texttt-2023-9-14" class="headerlink" title="Day -36 / Day -1 $^\texttt{2023/9/14}$"></a>Day -36 / Day -1 $^\texttt{2023/9/14}$</h2><ul>
+<li>花了一个晚自习的时间复习了一下有关「主定理」「组合数学」「计算机基础知识」的部分。RP++。</li>
+</ul>
+<hr>
+<h2 id="Day-35-Day-0-texttt-2023-9-15"><a href="#Day-35-Day-0-texttt-2023-9-15" class="headerlink" title="Day -35 / Day 0 $^\texttt{2023/9/15}$"></a>Day -35 / Day 0 $^\texttt{2023/9/15}$</h2><ul>
+<li>祈祷能过初赛。</li>
+</ul>
+<h2 id="Day-34-texttt-2023-9-16"><a href="#Day-34-texttt-2023-9-16" class="headerlink" title="Day -34 $^\texttt{2023/9/16}$"></a>Day -34 $^\texttt{2023/9/16}$</h2><ul>
+<li><p>初赛。</p>
+</li>
+<li><p>上午学校请了半天假，用来放松一下心情，还和同学玩了会 Wordle 和 Numberle。</p>
+</li>
+</ul>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/ts1qjxxm.png" alt=""></p>
+<script type="math/tex; mode=display">\color{grey}\tiny\texttt{极限.jpg}</script><p><img src="https://cdn.luogu.com.cn/upload/image_hosting/zyuh4870.png" alt=""></p>
+<script type="math/tex; mode=display">\color{grey}\tiny\texttt{当时甚至在分奇偶性讨论.jpg}</script><ul>
+<li>下午去考初赛，刚去就没绷住。</li>
+</ul>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/sbo1alr9.png" alt=""></p>
+<script type="math/tex; mode=display">\color{grey}\tiny\textbf{《Compvier》}</script><ul>
+<li>开考。</li>
+</ul>
+<p>开幕雷击。怎么一开始就是个 Linux 命令，还好开考前看了一眼，<code>mkdir</code>。</p>
+<p>然后组合数学也给我气笑了。$4 \times 4 \times 3 \times 2$ 真的好难。</p>
+<p>然后染色那题脑抽了。一时没想到树形结构都能染色，后悔的要死。</p>
+<p>快速幂那题是真没想到。合着主定理出现在这。</p>
+<p>$T(n)=2T\left(\frac{n}{2}\right)+O(1)$。$\log_ab=1&gt;c_{crit}$。复杂度 $O(n^{\log_ab})=O(n)$ 的快速幂诚不欺我。</p>
+<p>然后接下来的阅读程序做的挺顺的，也没考字符串。</p>
+<p>T1 是个位运算。手算即可。<code>unsigned</code> 别忘溢出。</p>
+<p>T2 是个神奇的埃筛。$f_n$ 是 $n$ 的最小质因数，$g_n$ 没看懂。但是不影响做题。手模一下然后就不难了。问时间复杂度更是重量级。此项全对。</p>
+<p>T3 是个神奇的二分。好像是在求子段之和 $\le p$ 的子段数量不少于 $k$ 的最小 $p$，手模。</p>
+<p>完善程序第一题是个挺典的 DAG 计数。$4 / 5$，还错了一个空，怎么会是呢？</p>
+<p>第二题是个分治求子序列最大值之和。$0 / 5$，我也有点佩服我自己。</p>
+<p>话说我最后一分钟改了两题。一题 $-2$，一题 $+3$，不亏。</p>
+<p>小图灵估分 $63.5$，大抵是能过的了吧。</p>
+<hr>
+<h2 id="Day-29-texttt-2023-9-21"><a href="#Day-29-texttt-2023-9-21" class="headerlink" title="Day -29 $^\texttt{2023/9/21}$"></a>Day -29 $^\texttt{2023/9/21}$</h2><ul>
+<li>凌晨补习 whk 内容，总之在复赛之前 whk 别出什么问题。</li>
+</ul>
+<p>工业制氯气：</p>
+<script type="math/tex; mode=display">\text{2NaCl+2H}_{2}\text O\xlongequal[]{\text{通电}}\text{Cl}_2\uparrow+\text{2NaOH}+\text{H}_2\uparrow</script><p>实验室制氯气：</p>
+<script type="math/tex; mode=display">\text{MnO}_2+4\text{HCl(浓)}\xlongequal[]{ \triangle}\text{MnCl}_2+2\text{H}_2\text{O}+\text{Cl}_2\uparrow</script><p>氧化钠：</p>
+<script type="math/tex; mode=display">\text{4Na}+\text{O}_2\xlongequal{}2\text{Na}_2\text{O}</script><ul>
+<li>银白色。</li>
+<li>与水反应生成氢氧化钠，与二氧化碳反应生成碳酸钠。</li>
+</ul>
+<p>过氧化钠：</p>
+<script type="math/tex; mode=display">\text{2Na}+\text{O}_2\xlongequal{\triangle}\text{Na}_2\text{O}_2</script><ul>
+<li>淡黄色，与 $\text{AgBr}$ 和 $\text{S}$ 一个颜色。</li>
+<li>与水和二氧化碳反应都生成氧气。$2\text{Na}_2\text{O}_2+2\text{CO}_2\xlongequal{}2\text{Na}_2\text{CO}_3+\text{O}_2$</li>
+</ul>
+<p>溴：</p>
+<ul>
+<li>卤素，易挥发。</li>
+<li>氧化性：$\text{Cl}_2&gt;\text{Br}_2&gt;\text{I}_2$</li>
+<li>海水提纯：<ul>
+<li>母液通氯气。$\text{2Br}^-+\text{Cl}_2\xlongequal{}2\text{Cl}^-+\text{Br}_2$<ul>
+<li>热空气吹出（易挥发）。</li>
+<li>用含 $\text{SO}_2$ 吸收液吸收溴蒸汽（富集）。$\text{Br}_2+2\text{H}_2\text{O}+\text{SO}_2\xlongequal{}\text{H}_2\text{SO}_4+2\text{HBr}$</li>
+<li>再通氯气，四氯化碳萃取，蒸馏。</li>
+<li>用碳酸钠吸收的太逆天了，<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/paste/63lqo9nc">Click here to learn more</a>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="Day-28-texttt-2023-9-22"><a href="#Day-28-texttt-2023-9-22" class="headerlink" title="Day -28 $^\texttt{2023/9/22}$"></a>Day -28 $^\texttt{2023/9/22}$</h2><p>偶然又点开了<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Yr4y1P73q/"><strong>群青</strong></a>，真的很感慨啊。</p>
+<p>去年的新年打 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/contest/52554#description">「Cnoi2021」Cirno’s Easy Round II</a>（也是印象最深的一场 lgr） 的时候就是在听着这首歌，打了 rk#44 的成绩，现在再也没打过这么高的 rk 了。</p>
+<p>下午教练把我们喊过去了。知道能过线但是没想到没想到分数线才 $52.5$，这下得认真搞复赛了。</p>
+<hr>
+<h2 id="Day-27-texttt-2023-9-23"><a href="#Day-27-texttt-2023-9-23" class="headerlink" title="Day -27 $^\texttt{2023/9/23}$"></a>Day -27 $^\texttt{2023/9/23}$</h2><p>Arcaea 的 ptt 到 11.8 了。</p>
+<p>$\text{Aphasia - Team Grimoire}$ 的 Phigros 自制也写到差不多 $40\%$ 了，头大。</p>
+<hr>
+<h2 id="Day-14-texttt-2023-10-6"><a href="#Day-14-texttt-2023-10-6" class="headerlink" title="Day -14 $^\texttt{2023/10/6}$"></a>Day -14 $^\texttt{2023/10/6}$</h2><p>这期间摘星了。</p>
+<p><img src="bilibili:BV1sH4y1R7FG" alt=""></p>
+<ul>
+<li><strong>打算速速写完所有学过的东西的模板</strong></li>
+<li><strong>学习 Linux 对拍命令</strong></li>
+</ul>
+<hr>
+<h2 id="Day-5-texttt-2023-10-15"><a href="#Day-5-texttt-2023-10-15" class="headerlink" title="Day -5 $^\texttt{2023/10/15}$"></a>Day -5 $^\texttt{2023/10/15}$</h2><p>写模板。</p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/paste/5lkdnmy0">$\textsf{\textbf{Link}}$</a></p>
+<p><a target="_blank" rel="noopener" href="https://githubfast.com/argvchs/algorithm">https://githubfast.com/argvchs/algorithm</a></p>
+<hr>
+<h2 id="Day-1-texttt-2023-10-19"><a href="#Day-1-texttt-2023-10-19" class="headerlink" title="Day -1 $^\texttt{2023/10/19}$"></a>Day -1 $^\texttt{2023/10/19}$</h2><ul>
+<li>调了一个晚上的 Splay 代码竟是因为查后继的时候 <code>&lt;</code> 打成 <code>&lt;=</code>，我的评价是不会 Splay 可以不写。</li>
+</ul>
+<hr>
+<h2 id="Day-1-texttt-2023-10-21"><a href="#Day-1-texttt-2023-10-21" class="headerlink" title="Day 1$^\texttt{2023/10/21}$"></a>Day 1$^\texttt{2023/10/21}$</h2><p>下午一点半进场，两点试机。试机的时候把缺省源打了，然后 NOI Linux 上的 Code::Blocks 还死了一次，用 <code>pkill codeblocks</code> 才退掉的，难绷。</p>
+<p>然后两点半发了解压密码，开题。</p>
+<p>先把第一题看了，第一题 lock 看着题面感觉为什么这么难，搞不好又是数学什么的，一大堆，想了十分钟之后想通了，去看了眼数据范围骗分，然后惊讶地发现 $n \le 8$，这下 $\Theta(10^5 \times n)$ 暴力直接上了。写完大概过去了半个小时。</p>
+<p>接着我看了下剩余的三题想看看哪一题更好拿分，发现 game 一眼是个 $O(n^3)$ 的区间 dp，发现能过 $n \le 8000$ 的 $35$ 分，这下直接上 dp。然后 dp 写挂还调了大概二十分钟。写完大概是 3:45 了。</p>
+<p>然后看了眼 T3 struct，发现是个大模拟，当时直接想吐口血在键盘上。CSP-S 出大模拟搞区分度是吧。先开 T4 tree。</p>
+<p>发现 T4 完全没有思路啊。有点像个树形 dp。不管怎么样先把链的 $10$ 分拿了。然后写链又写了半个小时。回头看 game。</p>
+<p>觉得 $O(n^2)$ 的外层循环和 $O(n)$ 的内层枚举中间点不能再少了啊，看来正解应该不是区间 dp 了。开大模拟。</p>
+<p>先开了性质 A。如果没有结构体的话就会非常简单。来一个变量就 <code>push_back</code> 进 <code>vector</code> 即可。</p>
+<p>然后看性质 B。觉得 B 也很好写啊。如果定义了一个结构体 <code>a</code> 里面成员有 <code>e f</code> 然后定义了 <code>a b</code> 那就直接把名字命名为 <code>b.e b.f</code> 就行了。然后我以为定义结构体也占空间，考试结束之前 45 分钟才看出来，wssb。</p>
+<p>最后看性质 C。其实就是在 B 的基础上加了可以定义结构体，并且保证不会出现结构体套结构体的情况。改了几行就调过了。</p>
+<p>然后手造了几组小样例，跑的都没什么问题。去看看 tree 还有什么能骗的了。发现 $c=0$ 似乎能骗。然后发现根本骗不了。输。</p>
+<p>考试结束 5 分钟的时候记了字节数。发现代码长度 <code>T1 + T2 + T4 &lt; T3</code> 难绷。</p>
+<p>估分：$100+35+[0,65]+[0,10]=[135,210]$。</p>
+<p>实际：$100+35+0+0=135$</p>
+<p>sb T3 题目读错了，nm。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Travel-Notes/" rel="tag"># Travel Notes</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/03/02/csp-j-2022-black-fate/" rel="prev" title="CSP-S 2022 游记 / Black Fate.">
+      <i class="fa fa-chevron-left"></i> CSP-S 2022 游记 / Black Fate.
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/03/02/noip-2023-silent-answer/" rel="next" title="NOIP 2023 游记 / Silent Answer.">
+      NOIP 2023 游记 / Silent Answer. <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CSP-S-2023-%E6%B8%B8%E8%AE%B0-Final-Verdict"><span class="nav-number">1.</span> <span class="nav-text">CSP-S 2023 游记 &#x2F; Final Verdict.</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Day-48-Day-13-texttt-2023-9-2"><span class="nav-number">1.1.</span> <span class="nav-text">Day -48 &#x2F; Day -13 $^\texttt{2023&#x2F;9&#x2F;2}$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Day-47-Day-12-texttt-2023-9-3"><span class="nav-number">1.2.</span> <span class="nav-text">Day -47 &#x2F; Day -12 $^\texttt{2023&#x2F;9&#x2F;3}$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Day-46-Day-11-texttt-2023-9-4"><span class="nav-number">1.3.</span> <span class="nav-text">Day -46 &#x2F; Day -11 $^\texttt{2023&#x2F;9&#x2F;4}$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Day-45-Day-10-texttt-2023-9-5"><span class="nav-number">1.4.</span> <span class="nav-text">Day -45 &#x2F; Day -10 $^\texttt{2023&#x2F;9&#x2F;5}$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Day-44-Day-9-texttt-2023-9-6"><span class="nav-number">1.5.</span> <span class="nav-text">Day -44 &#x2F; Day -9 $^\texttt{2023&#x2F;9&#x2F;6}$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Day-43-Day-8-texttt-2023-9-7"><span class="nav-number">1.6.</span> <span class="nav-text">Day -43 &#x2F; Day -8 $^\texttt{2023&#x2F;9&#x2F;7}$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Day-38-Day-3-texttt-2023-9-12"><span class="nav-number">1.7.</span> <span class="nav-text">Day -38 &#x2F; Day -3 $^\texttt{2023&#x2F;9&#x2F;12}$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Day-36-Day-1-texttt-2023-9-14"><span class="nav-number">1.8.</span> <span class="nav-text">Day -36 &#x2F; Day -1 $^\texttt{2023&#x2F;9&#x2F;14}$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Day-35-Day-0-texttt-2023-9-15"><span class="nav-number">1.9.</span> <span class="nav-text">Day -35 &#x2F; Day 0 $^\texttt{2023&#x2F;9&#x2F;15}$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Day-34-texttt-2023-9-16"><span class="nav-number">1.10.</span> <span class="nav-text">Day -34 $^\texttt{2023&#x2F;9&#x2F;16}$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Day-29-texttt-2023-9-21"><span class="nav-number">1.11.</span> <span class="nav-text">Day -29 $^\texttt{2023&#x2F;9&#x2F;21}$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Day-28-texttt-2023-9-22"><span class="nav-number">1.12.</span> <span class="nav-text">Day -28 $^\texttt{2023&#x2F;9&#x2F;22}$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Day-27-texttt-2023-9-23"><span class="nav-number">1.13.</span> <span class="nav-text">Day -27 $^\texttt{2023&#x2F;9&#x2F;23}$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Day-14-texttt-2023-10-6"><span class="nav-number">1.14.</span> <span class="nav-text">Day -14 $^\texttt{2023&#x2F;10&#x2F;6}$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Day-5-texttt-2023-10-15"><span class="nav-number">1.15.</span> <span class="nav-text">Day -5 $^\texttt{2023&#x2F;10&#x2F;15}$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Day-1-texttt-2023-10-19"><span class="nav-number">1.16.</span> <span class="nav-text">Day -1 $^\texttt{2023&#x2F;10&#x2F;19}$</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Day-1-texttt-2023-10-21"><span class="nav-number">1.17.</span> <span class="nav-text">Day 1$^\texttt{2023&#x2F;10&#x2F;21}$</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="TheSky233"
+      src="https://cdn.luogu.com.cn/upload/usericon/501865.png">
+  <p class="site-author-name" itemprop="name">TheSky233</p>
+  <div class="site-description" itemprop="description">An OIer / PhOer</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/TheSky233" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;TheSky233" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1602458048@qq.com" title="E-Mail → mailto:1602458048@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.luogu.com.cn/user/501865" title="https:&#x2F;&#x2F;www.luogu.com.cn&#x2F;user&#x2F;501865" rel="noopener" target="_blank">TheSky233's Luogu</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheSky233</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">65k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">59 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
+<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script>
+<script src="/js/algolia-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

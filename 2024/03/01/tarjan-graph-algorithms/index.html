@@ -25,7 +25,7 @@
   <meta name="description" content="- 前言本文主要介绍 Tarjan 算法的「强连通分量」「割点」「桥」等算法。 争取写的好懂一些。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【学习笔记】Tarjan图论算法">
-<meta property="og:url" content="http://example.com/2024/03/01/tarjan-graph-algorithm/index.html">
+<meta property="og:url" content="http://example.com/2024/03/01/tarjan-graph-algorithms/index.html">
 <meta property="og:site_name" content="TheSky233&#39;s Blog">
 <meta property="og:description" content="- 前言本文主要介绍 Tarjan 算法的「强连通分量」「割点」「桥」等算法。 争取写的好懂一些。">
 <meta property="og:locale" content="zh_CN">
@@ -39,13 +39,14 @@
 <meta property="og:image" content="https://s1.ax1x.com/2023/01/21/pSGyj2j.png">
 <meta property="og:image" content="https://s1.ax1x.com/2023/01/23/pSYkD0g.png">
 <meta property="article:published_time" content="2024-02-29T16:32:15.000Z">
-<meta property="article:modified_time" content="2024-02-29T16:55:49.834Z">
+<meta property="article:modified_time" content="2024-03-01T19:50:42.311Z">
 <meta property="article:author" content="TheSky233">
 <meta property="article:tag" content="Tarjan">
+<meta property="article:tag" content="Graph">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s1.ax1x.com/2023/01/23/pSYVyAe.png">
 
-<link rel="canonical" href="http://example.com/2024/03/01/tarjan-graph-algorithm/">
+<link rel="canonical" href="http://example.com/2024/03/01/tarjan-graph-algorithms/">
 
 
 <script id="page-configurations">
@@ -199,7 +200,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/01/tarjan-graph-algorithm/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/01/tarjan-graph-algorithms/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://cdn.luogu.com.cn/upload/usericon/501865.png">
@@ -216,15 +217,22 @@
         </h1>
 
         <div class="post-meta">
+          
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-03-01 00:32:15 / 修改时间：00:55:49" itemprop="dateCreated datePublished" datetime="2024-03-01T00:32:15+08:00">2024-03-01</time>
+              <time title="创建时间：2024-03-01 00:32:15" itemprop="dateCreated datePublished" datetime="2024-03-01T00:32:15+08:00">2024-03-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-02 03:50:42" itemprop="dateModified" datetime="2024-03-02T03:50:42+08:00">2024-03-02</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -394,6 +402,7 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/Tarjan/" rel="tag"># Tarjan</a>
+              <a href="/tags/Graph/" rel="tag"># Graph</a>
           </div>
 
         
@@ -405,7 +414,10 @@
     <a href="/2024/02/29/hello-world/" rel="prev" title="Hello World">
       <i class="fa fa-chevron-left"></i> Hello World
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2024/03/02/sort-algorithm-time-complexity/" rel="next" title="【排序】各类排序算法的时间性能比较">
+      【排序】各类排序算法的时间性能比较 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -480,20 +492,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -548,13 +560,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">9k</span>
+    <span title="站点总字数">65k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8 分钟</span>
+    <span title="站点阅读时长">59 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
